@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.ui.navigation
+package hu.bme.aut.langlearn.common_feature.navigation
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar

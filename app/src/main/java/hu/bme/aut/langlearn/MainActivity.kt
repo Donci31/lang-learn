@@ -3,7 +3,7 @@ package hu.bme.aut.langlearn
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import hu.bme.aut.langlearn.ui.MainMenu
+import hu.bme.aut.langlearn.common_feature.MainMenu
 import hu.bme.aut.langlearn.ui.theme.LangLearnTheme
 
 class MainActivity : ComponentActivity() {

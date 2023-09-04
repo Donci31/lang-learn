@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.ui.navigation
+package hu.bme.aut.langlearn.common_feature.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -24,11 +24,6 @@ enum class NavItem(
         route = "practice",
         selectedIcon = Icons.Filled.ThumbUp,
         unSelectedIcon = Icons.Outlined.ThumbUp
-    ),
-    Forum(
-        route = "forum",
-        selectedIcon = Icons.Filled.AccountCircle,
-        unSelectedIcon = Icons.Outlined.AccountCircle
     ),
     Profile(
         route = "profile",

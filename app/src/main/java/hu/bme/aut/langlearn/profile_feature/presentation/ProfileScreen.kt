@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.ui.profile
+package hu.bme.aut.langlearn.profile_feature.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,8 +36,6 @@ fun ProfileScreen(
     username: String,
     learningLanguages: List<String>,
     achievements: List<String>,
-    lessonsCompleted: Int,
-    vocabularyLearned: Int,
 ) {
     Scaffold(
         topBar = {
@@ -59,7 +57,8 @@ fun ProfileScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
+                .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_background),
@@ -104,18 +103,6 @@ fun ProfileScreen(
                 achievements.forEach { achievement ->
                     Chip(text = achievement, modifier = Modifier.height(32.dp))
                 }
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text("Progress:", fontWeight = FontWeight.Bold)
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp)
-            ) {
-                ProgressItem(label = "Lessons Completed", value = lessonsCompleted)
-                ProgressItem(label = "Vocabulary Learned", value = vocabularyLearned)
             }
         }
     }

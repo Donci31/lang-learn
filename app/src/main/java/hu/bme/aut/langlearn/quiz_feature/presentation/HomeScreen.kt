@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.ui.quiz
+package hu.bme.aut.langlearn.quiz_feature.presentation
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
