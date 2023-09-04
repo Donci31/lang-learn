@@ -5,22 +5,18 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun BottomNavigationBar(
-    modifier: Modifier = Modifier,
     navController: NavController,
-    items: Array<BottomNavItem>,
-    onItemClick: (BottomNavItem) -> Unit
+    items: Array<NavItem>,
+    onItemClick: (NavItem) -> Unit,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-    NavigationBar(
-        modifier = modifier
-    ) {
+    NavigationBar {
         items.forEach { item ->
             NavigationBarItem(
                 selected = item.route == navBackStackEntry?.destination?.route,

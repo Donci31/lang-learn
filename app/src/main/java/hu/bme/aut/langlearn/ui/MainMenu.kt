@@ -6,17 +6,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import hu.bme.aut.langlearn.ui.navigation.BottomNavigationBar
-import hu.bme.aut.langlearn.ui.navigation.BottomNavItem
+import hu.bme.aut.langlearn.ui.navigation.NavItem
 import hu.bme.aut.langlearn.ui.practice.Practice
 import hu.bme.aut.langlearn.ui.profile.Profile
 import hu.bme.aut.langlearn.ui.quiz.Quiz
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalStdlibApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainMenu() {
     val navController = rememberNavController()
@@ -25,27 +24,21 @@ fun MainMenu() {
         bottomBar = {
             BottomNavigationBar(
                 navController = navController,
-                items = BottomNavItem.values()
-            ) { item ->
-                navController.navigate(item.route)
+                items = NavItem.values()
+            ) { navItem ->
+                navController.navigate(navItem.route)
             }
         }
-    ) { innerPadding ->
-        Navigation(
-            modifier = Modifier.padding(innerPadding),
-            navController = navController
-        )
-    }
-}
-
-
-
-@Composable
-fun Navigation(modifier: Modifier, navController: NavHostController) {
-    NavHost(navController, startDestination = BottomNavItem.Quiz.route, modifier) {
-        composable(BottomNavItem.Quiz.route) { Quiz(navController) }
-        composable(BottomNavItem.Practice.route) { Practice(navController) }
-        composable(BottomNavItem.Profile.route) { Profile(navController) }
+    ) { padding ->
+        NavHost(
+            navController = navController,
+            startDestination = NavItem.Quiz.route,
+            modifier = Modifier.padding(padding)
+        ) {
+            composable(NavItem.Quiz.route) { Quiz(navController) }
+            composable(NavItem.Practice.route) { Practice(navController) }
+            composable(NavItem.Profile.route) { Profile(navController) }
+        }
     }
 }
 

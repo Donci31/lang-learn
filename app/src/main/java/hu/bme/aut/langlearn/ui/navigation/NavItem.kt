@@ -7,7 +7,7 @@ import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.ui.graphics.vector.ImageVector
 
 
-enum class BottomNavItem(
+enum class NavItem(
     val route: String,
     val icon: ImageVector,
 ) {
