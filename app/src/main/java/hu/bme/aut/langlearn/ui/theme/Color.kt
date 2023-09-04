@@ -2,14 +2,10 @@ package hu.bme.aut.langlearn.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Black = Color(0xFF000000)
+val Purple80 = Color(0xFFD0BCFF)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
 
-val DarkPurple = Color(0xFF32213A)
-val SaddleBrown = Color(0xFF702A04)
-val MidNightGreen = Color(0xFF0F3942)
-val BananaMania = Color(0xFFFFEDB3)
-
-val SkyBlueCrayola = Color(0xFF49D1E6)
-val OrangeYellowCrayola = Color(0xFFFED766)
-val Cultured = Color(0xFFC4ECFF)
-val Whited = Color(0xFF000000)
+val Purple40 = Color(0xFF6650a4)
+val PurpleGrey40 = Color(0xFF625b71)
+val Pink40 = Color(0xFF7D5260)
