@@ -23,7 +23,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Quiz(navController: NavController) {
+fun HomeScreen(navController: NavController) {
     val messages = remember {
         mutableStateListOf(
             "English",

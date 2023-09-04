@@ -2,7 +2,6 @@ package hu.bme.aut.langlearn.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -25,6 +24,11 @@ enum class NavItem(
         route = "practice",
         selectedIcon = Icons.Filled.ThumbUp,
         unSelectedIcon = Icons.Outlined.ThumbUp
+    ),
+    Forum(
+        route = "forum",
+        selectedIcon = Icons.Filled.AccountCircle,
+        unSelectedIcon = Icons.Outlined.AccountCircle
     ),
     Profile(
         route = "profile",
