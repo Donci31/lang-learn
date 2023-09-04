@@ -3,6 +3,7 @@ package hu.bme.aut.langlearn.ui.navigation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
@@ -18,14 +19,25 @@ fun BottomNavigationBar(
 
     NavigationBar {
         items.forEach { item ->
+            val isSelected = item.route == navBackStackEntry?.destination?.route
             NavigationBarItem(
-                selected = item.route == navBackStackEntry?.destination?.route,
+                selected = isSelected,
                 onClick = { onItemClick(item) },
                 icon = {
-                    Icon(
-                        imageVector = item.icon,
-                        contentDescription = item.name
-                    )
+                    if (isSelected) {
+                        Icon(
+                            imageVector = item.selectedIcon,
+                            contentDescription = item.name
+                        )
+                    } else {
+                        Icon(
+                            imageVector = item.unSelectedIcon,
+                            contentDescription = item.name
+                        )
+                    }
+                },
+                label = {
+                    Text(text = item.name)
                 }
             )
         }

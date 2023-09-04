@@ -26,7 +26,9 @@ fun MainMenu() {
                 navController = navController,
                 items = NavItem.values()
             ) { navItem ->
-                navController.navigate(navItem.route)
+                navController.navigate(navItem.route) {
+                    popUpTo(navController.graph.id)
+                }
             }
         }
     ) { padding ->

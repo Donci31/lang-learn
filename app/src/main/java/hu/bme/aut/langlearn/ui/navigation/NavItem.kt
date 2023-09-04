@@ -5,23 +5,30 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.ui.graphics.vector.ImageVector
 
 
 enum class NavItem(
     val route: String,
-    val icon: ImageVector,
+    val selectedIcon: ImageVector,
+    val unSelectedIcon: ImageVector,
 ) {
     Quiz(
         route = "quiz",
-        icon = Icons.Filled.Home
+        selectedIcon = Icons.Filled.Home,
+        unSelectedIcon = Icons.Outlined.Home
     ),
     Practice(
         route = "practice",
-        icon = Icons.Filled.ThumbUp
+        selectedIcon = Icons.Filled.ThumbUp,
+        unSelectedIcon = Icons.Outlined.ThumbUp
     ),
     Profile(
         route = "profile",
-        icon = Icons.Filled.AccountCircle
+        selectedIcon = Icons.Filled.AccountCircle,
+        unSelectedIcon = Icons.Outlined.AccountCircle
     )
 }

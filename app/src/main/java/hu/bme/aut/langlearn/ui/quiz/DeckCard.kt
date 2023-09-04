@@ -1,5 +1,6 @@
 package hu.bme.aut.langlearn.ui.quiz
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,7 +25,8 @@ fun DeckCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable { },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
@@ -35,20 +37,8 @@ fun DeckCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(text = name)
-            Row {
-                IconButton(onClick = { }) {
-                    Icon(
-                        imageVector = Icons.Filled.Edit,
-                        contentDescription = "Edit"
-                    )
-                }
-                IconButton(onClick = { }) {
-                    Icon(
-                        imageVector = Icons.Filled.Delete,
-                        contentDescription = "Delete"
-                    )
-                }
-            }
+
+            Text(text = "15 words")
         }
     }
 }
