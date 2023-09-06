@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.profile_feature.presentation
+package hu.bme.aut.langlearn.presentation.profile_screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

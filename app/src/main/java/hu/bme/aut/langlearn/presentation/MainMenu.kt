@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.common_feature
+package hu.bme.aut.langlearn.presentation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -9,11 +9,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import hu.bme.aut.langlearn.common_feature.navigation.BottomNavigationBar
-import hu.bme.aut.langlearn.common_feature.navigation.NavItem
-import hu.bme.aut.langlearn.practice_feature.presentation.PracticeScreen
-import hu.bme.aut.langlearn.profile_feature.presentation.ProfileScreen
-import hu.bme.aut.langlearn.quiz_feature.presentation.HomeScreen
+import hu.bme.aut.langlearn.navigation.BottomNavigationBar
+import hu.bme.aut.langlearn.navigation.NavItem
+import hu.bme.aut.langlearn.presentation.practice_screen.PracticeScreen
+import hu.bme.aut.langlearn.presentation.profile_screen.ProfileScreen
+import hu.bme.aut.langlearn.presentation.quiz_screen.HomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
