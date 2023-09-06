@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
+import hu.bme.aut.langlearn.navigation.AuthNavigation
 import hu.bme.aut.langlearn.presentation.MainMenu
 import hu.bme.aut.langlearn.presentation.quiz_screen.HomeScreen
 import hu.bme.aut.langlearn.presentation.singup_screen.SignUpScreen
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LangLearnTheme {
-                MainMenu()
+                AuthNavigation()
             }
         }
     }

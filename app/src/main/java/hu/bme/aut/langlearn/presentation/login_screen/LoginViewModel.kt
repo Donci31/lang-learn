@@ -11,24 +11,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(
+class LoginViewModel @Inject constructor(
     private val repository: AuthRepository,
 ) : ViewModel() {
 
-    private val _signInState = Channel<SignInState>()
-    val signInState = _signInState.receiveAsFlow()
+    private val _loginState = Channel<LoginState>()
+    val loginState = _loginState.receiveAsFlow()
 
     fun loginUser(email: String, password: String) = viewModelScope.launch {
         repository.loginUser(email, password).collect { result ->
             when (result) {
                 is Resource.Success -> {
-                    _signInState.send(SignInState(isSuccess = "Success"))
+                    _loginState.send(LoginState(isSuccess = "Success"))
                 }
                 is Resource.Loading -> {
-                    _signInState.send(SignInState(isLoading = true))
+                    _loginState.send(LoginState(isLoading = true))
                 }
                 is Resource.Error -> {
-                    _signInState.send(SignInState(isError = result.message))
+                    _loginState.send(LoginState(isError = result.message))
                 }
             }
         }

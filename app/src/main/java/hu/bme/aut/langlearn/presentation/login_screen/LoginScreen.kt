@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.singup_screen
+package hu.bme.aut.langlearn.presentation.login_screen
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -22,20 +22,19 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import hu.bme.aut.langlearn.presentation.login_screen.LoginState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen(
+fun LoginScreen(
     navController: NavController,
-    viewModel: SignUpViewModel = hiltViewModel(),
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val state = viewModel.signUpState.collectAsState(initial = LoginState())
+    val state = viewModel.loginState.collectAsState(initial = LoginState())
 
     Scaffold { padding ->
         Column(
@@ -45,8 +44,14 @@ fun SignUpScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            if (state.value.isSuccess == "Success") {
+                navController.navigate("main_menu") {
+                    popUpTo(navController.graph.id)
+                }
+            }
+
             Text(
-                text = "Sign Up",
+                text = "Login",
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.displayLarge
             )
@@ -73,21 +78,21 @@ fun SignUpScreen(
             Button(
                 onClick = {
                     scope.launch {
-                        viewModel.signUpUser(email, password)
+                        viewModel.loginUser(email, password)
                     }
                 }
             ) {
                 Text(
-                    text = "Sign Up"
+                    text = "Login"
                 )
             }
             TextButton(
                 onClick = {
-                    navController.navigate("login")
+                    navController.navigate("register")
                 },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(text = "Already have an account? Login here!")
+                Text(text = "Don't have an account? Sign up now!")
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -103,15 +108,6 @@ fun SignUpScreen(
                     .padding(top = 10.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-                LaunchedEffect(key1 = state.value.isSuccess) {
-                    scope.launch {
-                        if (state.value.isSuccess != null) {
-                            val success = state.value.isSuccess
-                            Toast.makeText(context, "$success", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
-
                 LaunchedEffect(key1 = state.value.isError) {
                     viewModel.viewModelScope.launch {
                         if (state.value.isError != null) {

@@ -6,6 +6,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -17,7 +18,9 @@ import hu.bme.aut.langlearn.presentation.quiz_screen.HomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainMenu() {
+fun MainMenu(
+    outerNavController: NavController
+) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -53,5 +56,6 @@ fun MainMenu() {
 @Preview
 @Composable
 fun MainMenuPreview() {
-    MainMenu()
+    val navController = rememberNavController()
+    MainMenu(navController)
 }
