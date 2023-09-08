@@ -12,9 +12,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import hu.bme.aut.langlearn.navigation.BottomNavigationBar
 import hu.bme.aut.langlearn.navigation.NavItem
+import hu.bme.aut.langlearn.presentation.deck_screen.DecksScreen
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeScreen
 import hu.bme.aut.langlearn.presentation.profile_screen.ProfileScreen
-import hu.bme.aut.langlearn.presentation.quiz_screen.HomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +40,7 @@ fun MainMenu(
             startDestination = NavItem.Quiz.route,
             modifier = Modifier.padding(padding)
         ) {
-            composable(NavItem.Quiz.route) { HomeScreen(navController) }
+            composable(NavItem.Quiz.route) { DecksScreen(navController) }
             composable(NavItem.Practice.route) { PracticeScreen(navController) }
             composable(NavItem.Profile.route) {
                 ProfileScreen(

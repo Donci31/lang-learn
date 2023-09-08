@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.quiz_screen
+package hu.bme.aut.langlearn.presentation.deck_screen
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,23 +19,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
-    val messages = remember {
-        mutableStateListOf(
-            "English",
-            "German",
-        )
-    }
+fun DecksScreen(
+    navController: NavController,
+    viewModel: DeckViewModel = hiltViewModel()
+) {
+    val decks = viewModel.decks
 
     Scaffold(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(all = 16.dp),
-                onClick = { messages.add("Asd") }
+                onClick = { viewModel.onAddDeckClick() }
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Add,
@@ -51,8 +50,8 @@ fun HomeScreen(navController: NavController) {
             contentPadding = padding,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(messages) { name ->
-                DeckCard(name = name)
+            items(decks) { deck ->
+                DeckItem(deck = deck, onClick = { viewModel.onDeckClick(deck) })
             }
         }
     }
