@@ -22,7 +22,7 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun reqisterUser(email: String, password: String): Flow<Resource<AuthResult>> {
+    override fun registerUser(email: String, password: String): Flow<Resource<AuthResult>> {
         return flow {
             emit(Resource.Loading())
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
