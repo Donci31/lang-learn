@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import hu.bme.aut.langlearn.data.deck_screen.Deck
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
@@ -15,19 +16,17 @@ class FirebaseRepositoryImpl @Inject constructor(
     override fun getAllDecks() = flow {
         emit(Resource.Loading())
 
-        try {
-            val decks = firestore
-                .collection("decks")
-                .get()
-                .await()
-                .map {
-                    it.toObject(Deck::class.java)
-                }
+        val decks = firestore
+            .collection("decks")
+            .get()
+            .await()
+            .map {
+                it.toObject(Deck::class.java)
+            }
 
-            emit(Resource.Success(decks))
-        } catch (e: Exception) {
-            emit(Resource.Error("Error fetching deck list: ${e.message}"))
-        }
+        emit(Resource.Success(decks))
+    }.catch {
+        emit(Resource.Error(message = "Error fetching deck list: ${it.message}"))
     }.flowOn(Dispatchers.IO)
 
     override fun addDeck(deck: Deck) {

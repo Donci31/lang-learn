@@ -19,7 +19,7 @@ class AuthRepositoryImpl @Inject constructor(
 
         emit(Resource.Success(result))
     }.catch {
-        emit(Resource.Error(it.message.toString()))
+        emit(Resource.Error(message = it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
     override fun registerUser(email: String, password: String) = flow {
@@ -29,6 +29,6 @@ class AuthRepositoryImpl @Inject constructor(
 
         emit(Resource.Success(result))
     }.catch {
-        emit(Resource.Error(it.message.toString()))
+        emit(Resource.Error(message = it.message.toString()))
     }.flowOn(Dispatchers.IO)
 }
