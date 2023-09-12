@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,7 +27,7 @@ fun DecksScreen(
     navController: NavController,
     viewModel: DeckViewModel = hiltViewModel()
 ) {
-    val decks = viewModel.decks
+    val decks = viewModel.deckListState.collectAsState()
 
     Scaffold(
         floatingActionButton = {
@@ -48,7 +49,7 @@ fun DecksScreen(
             contentPadding = padding,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(decks) { deck ->
+            items(decks.value.decks) { deck ->
                 DeckItem(deck = deck, onClick = { viewModel.onDeckClick(deck) })
             }
         }

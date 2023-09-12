@@ -20,21 +20,20 @@ class LoginViewModel @Inject constructor(
     val loginState = _loginState.asStateFlow()
 
     fun loginUser(email: String, password: String) {
-        repository.loginUser(email, password)
-            .onEach { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        _loginState.value = LoginState(isSuccess = "Success")
-                    }
-
-                    is Resource.Loading -> {
-                        _loginState.value = LoginState(isLoading = true)
-                    }
-
-                    is Resource.Error -> {
-                        _loginState.value = LoginState(isError = result.message)
-                    }
+        repository.loginUser(email, password).onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    _loginState.value = LoginState(isSuccess = "Success")
                 }
-            }.launchIn(viewModelScope)
+
+                is Resource.Loading -> {
+                    _loginState.value = LoginState(isLoading = true)
+                }
+
+                is Resource.Error -> {
+                    _loginState.value = LoginState(isError = result.message)
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 }

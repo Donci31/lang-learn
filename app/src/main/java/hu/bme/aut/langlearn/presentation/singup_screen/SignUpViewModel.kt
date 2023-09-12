@@ -20,21 +20,20 @@ class SignUpViewModel @Inject constructor(
     val signUpState = _signUpState.asStateFlow()
 
     fun signUpUser(email: String, password: String) {
-        repository.registerUser(email, password)
-            .onEach { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        _signUpState.value = SignUpState(isSuccess = "Success")
-                    }
-
-                    is Resource.Loading -> {
-                        _signUpState.value = SignUpState(isLoading = true)
-                    }
-
-                    is Resource.Error -> {
-                        _signUpState.value = SignUpState(isError = result.message)
-                    }
+        repository.registerUser(email, password).onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    _signUpState.value = SignUpState(isSuccess = "Success")
                 }
-            }.launchIn(viewModelScope)
+
+                is Resource.Loading -> {
+                    _signUpState.value = SignUpState(isLoading = true)
+                }
+
+                is Resource.Error -> {
+                    _signUpState.value = SignUpState(isError = result.message)
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 }
