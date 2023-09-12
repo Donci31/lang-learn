@@ -10,7 +10,7 @@ import javax.inject.Inject
 class DeckViewModel @Inject constructor(
     private val repository: FirebaseRepository
 ): ViewModel() {
-    val decks = listOf(Deck("Germanic", listOf()))
+    val decks = repository.getAllDecks()
 
     fun onDeckClick(deck: Deck) {
 

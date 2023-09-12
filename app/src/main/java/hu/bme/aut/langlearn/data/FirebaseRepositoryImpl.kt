@@ -7,8 +7,8 @@ import javax.inject.Inject
 class FirebaseRepositoryImpl @Inject constructor(
     private val firestore: FirebaseFirestore
 ): FirebaseRepository {
-    override fun getAllDecks() {
-
+    override fun getAllDecks(): List<Deck> {
+        return emptyList()
     }
 
     override fun addDeck(deck: Deck) {
