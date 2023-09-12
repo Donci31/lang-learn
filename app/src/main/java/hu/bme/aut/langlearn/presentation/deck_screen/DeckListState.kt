@@ -1,6 +1,6 @@
 package hu.bme.aut.langlearn.presentation.deck_screen
 
-import hu.bme.aut.langlearn.data.deck_screen.Deck
+import hu.bme.aut.langlearn.domain.Deck
 
 data class DeckListState(
     val decks: List<Deck> = emptyList(),

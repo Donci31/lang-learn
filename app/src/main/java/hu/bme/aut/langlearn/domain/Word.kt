@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.data.deck_screen
+package hu.bme.aut.langlearn.domain
 
 data class Word(
     val foreignWord: String,

@@ -1,7 +1,7 @@
 package hu.bme.aut.langlearn.data
 
 import com.google.firebase.firestore.FirebaseFirestore
-import hu.bme.aut.langlearn.data.deck_screen.Deck
+import hu.bme.aut.langlearn.domain.Deck
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch

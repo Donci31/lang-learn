@@ -1,6 +1,6 @@
 package hu.bme.aut.langlearn.data
 
-import hu.bme.aut.langlearn.data.deck_screen.Deck
+import hu.bme.aut.langlearn.domain.Deck
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.Flow
 

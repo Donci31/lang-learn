@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import hu.bme.aut.langlearn.data.deck_screen.Deck
+import hu.bme.aut.langlearn.domain.Deck
 
 @Composable
 fun DeckItem(
