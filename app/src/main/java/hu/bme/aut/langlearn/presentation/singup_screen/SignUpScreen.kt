@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import hu.bme.aut.langlearn.presentation.login_screen.LoginState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +34,7 @@ fun SignUpScreen(
     var password by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val state = viewModel.signUpState.collectAsState(initial = LoginState())
+    val state = viewModel.signUpState.collectAsState()
 
     Scaffold { padding ->
         Column(
