@@ -28,7 +28,9 @@ class DeckViewModel @Inject constructor(
         repository.getAllDecks().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _deckListState.value = result.data?.let { DeckListState(decks = it) }!!
+                    _deckListState.value = result.data?.let {
+                        DeckListState(decks = it)
+                    } ?: DeckListState()
                 }
 
                 is Resource.Loading -> {
