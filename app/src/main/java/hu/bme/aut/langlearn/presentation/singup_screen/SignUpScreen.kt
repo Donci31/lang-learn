@@ -30,8 +30,6 @@ fun SignUpScreen(
     navController: NavController,
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val state = viewModel.signUpState.collectAsState()
@@ -53,16 +51,16 @@ fun SignUpScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = viewModel.email,
+                onValueChange = { viewModel.email = it },
                 label = { Text("Email") }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = viewModel.password,
+                onValueChange = { viewModel.password = it },
                 label = { Text("Password") },
                 visualTransformation = PasswordVisualTransformation()
             )
@@ -71,9 +69,7 @@ fun SignUpScreen(
 
             Button(
                 onClick = {
-                    scope.launch {
-                        viewModel.signUpUser(email, password)
-                    }
+                    viewModel.signUpUser(viewModel.email, viewModel.password)
                 }
             ) {
                 Text(
@@ -112,7 +108,7 @@ fun SignUpScreen(
                 }
 
                 LaunchedEffect(key1 = state.value.isError) {
-                    viewModel.viewModelScope.launch {
+                    scope.launch {
                         if (state.value.isError != null) {
                             val error = state.value.isError
                             Toast.makeText(context, "$error", Toast.LENGTH_LONG).show()

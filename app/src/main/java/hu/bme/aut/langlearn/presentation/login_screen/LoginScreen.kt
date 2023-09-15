@@ -30,11 +30,9 @@ fun LoginScreen(
     navController: NavController,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val state = viewModel.loginState.collectAsState(initial = LoginState())
+    val state by viewModel.loginState.collectAsState(LoginState())
 
     Scaffold { padding ->
         Column(
@@ -44,7 +42,7 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (state.value.isSuccess == "Success") {
+            if (state.isSuccess == "Success") {
                 navController.navigate("main_menu") {
                     popUpTo(navController.graph.id)
                 }
@@ -59,16 +57,16 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = viewModel.email,
+                onValueChange = { viewModel.email = it },
                 label = { Text("Email") }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = viewModel.password,
+                onValueChange = { viewModel.password = it },
                 label = { Text("Password") },
                 visualTransformation = PasswordVisualTransformation()
             )
@@ -77,9 +75,7 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    scope.launch {
-                        viewModel.loginUser(email, password)
-                    }
+                    viewModel.loginUser(viewModel.email, viewModel.password)
                 }
             ) {
                 Text(
@@ -98,7 +94,7 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                if (state.value.isLoading) {
+                if (state.isLoading) {
                     CircularProgressIndicator()
                 }
             }
@@ -108,10 +104,10 @@ fun LoginScreen(
                     .padding(top = 10.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-                LaunchedEffect(key1 = state.value.isError) {
-                    viewModel.viewModelScope.launch {
-                        if (state.value.isError != null) {
-                            val error = state.value.isError
+                LaunchedEffect(key1 = state.isError) {
+                    scope.launch {
+                        if (state.isError != null) {
+                            val error = state.isError
                             Toast.makeText(context, "$error", Toast.LENGTH_LONG).show()
                         }
                     }

@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -30,7 +31,7 @@ fun DecksScreen(
     navController: NavController,
     viewModel: DeckViewModel = hiltViewModel(),
 ) {
-    val decks = viewModel.deckListState.collectAsState()
+    val decks by viewModel.deckListState.collectAsState()
 
     Scaffold(
         topBar = {
@@ -67,7 +68,7 @@ fun DecksScreen(
             contentPadding = padding,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(decks.value.decks) { deck ->
+            items(decks.decks) { deck ->
                 DeckItem(deck = deck, onClick = { viewModel.onDeckClick(deck) })
             }
         }
