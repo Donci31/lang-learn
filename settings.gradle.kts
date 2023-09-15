@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "LangLearn"
-include ':app'
+include(":app")
