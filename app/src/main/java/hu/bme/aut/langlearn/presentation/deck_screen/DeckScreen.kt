@@ -8,11 +8,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -25,11 +28,26 @@ import androidx.navigation.NavController
 @Composable
 fun DecksScreen(
     navController: NavController,
-    viewModel: DeckViewModel = hiltViewModel()
+    viewModel: DeckViewModel = hiltViewModel(),
 ) {
     val decks = viewModel.deckListState.collectAsState()
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "Decks")
+                },
+                actions = {
+                    IconButton(onClick = { viewModel.loadDeckList() }) {
+                        Icon(
+                            imageVector = Icons.Outlined.Refresh,
+                            contentDescription = "Refresh"
+                        )
+                    }
+                }
+            )
+        },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(all = 16.dp),

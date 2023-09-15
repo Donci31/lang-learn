@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.FirebaseRepository
 import hu.bme.aut.langlearn.domain.Deck
+import hu.bme.aut.langlearn.domain.Word
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,7 +25,7 @@ class DeckViewModel @Inject constructor(
         loadDeckList()
     }
 
-    private fun loadDeckList() {
+    fun loadDeckList() {
         repository.getAllDecks().onEach { result ->
             when (result) {
                 is Resource.Success -> {
@@ -49,6 +50,6 @@ class DeckViewModel @Inject constructor(
     }
 
     fun onAddDeckClick() {
-        repository.addDeck(Deck("Germanic", listOf()))
+        repository.addDeck(Deck("France", listOf(Word("Baguette", "Baguette"))))
     }
 }
