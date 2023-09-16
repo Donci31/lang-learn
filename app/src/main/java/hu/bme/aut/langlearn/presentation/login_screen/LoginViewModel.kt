@@ -2,7 +2,6 @@ package hu.bme.aut.langlearn.presentation.login_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,7 +25,7 @@ class LoginViewModel @Inject constructor(
     private val _loginState = MutableStateFlow(LoginState())
     val loginState = _loginState.asStateFlow()
 
-    fun loginUser(email: String, password: String) {
+    fun loginUser() {
         repository.loginUser(email, password).onEach { result ->
             when (result) {
                 is Resource.Success -> {

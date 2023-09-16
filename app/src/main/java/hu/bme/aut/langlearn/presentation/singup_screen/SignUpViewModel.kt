@@ -2,7 +2,6 @@ package hu.bme.aut.langlearn.presentation.singup_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,7 +25,7 @@ class SignUpViewModel @Inject constructor(
     private val _signUpState = MutableStateFlow(SignUpState())
     val signUpState = _signUpState.asStateFlow()
 
-    fun signUpUser(email: String, password: String) {
+    fun signUpUser() {
         repository.registerUser(email, password).onEach { result ->
             when (result) {
                 is Resource.Success -> {
