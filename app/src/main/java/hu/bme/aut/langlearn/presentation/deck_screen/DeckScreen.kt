@@ -40,7 +40,9 @@ fun DecksScreen(
                     Text(text = "Decks")
                 },
                 actions = {
-                    IconButton(onClick = { viewModel.loadDeckList() }) {
+                    IconButton(
+                        onClick = viewModel::loadDeckList
+                    ) {
                         Icon(
                             imageVector = Icons.Outlined.Refresh,
                             contentDescription = "Refresh"
@@ -52,7 +54,7 @@ fun DecksScreen(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(all = 16.dp),
-                onClick = { viewModel.onAddDeckClick() }
+                onClick = viewModel::onAddDeckClick
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Add,
@@ -69,7 +71,10 @@ fun DecksScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(decks.decks) { deck ->
-                DeckItem(deck = deck, onClick = { viewModel.onDeckClick(deck) })
+                DeckItem(
+                    deck = deck,
+                    onClick = viewModel::onDeckClick
+                )
             }
         }
     }

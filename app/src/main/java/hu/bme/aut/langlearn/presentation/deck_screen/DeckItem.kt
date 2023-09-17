@@ -18,13 +18,13 @@ import hu.bme.aut.langlearn.domain.Deck
 @Composable
 fun DeckItem(
     deck: Deck,
-    onClick: () -> Unit
+    onClick: (Deck) -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .clickable { onClick() },
+            .clickable { onClick(deck) },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
