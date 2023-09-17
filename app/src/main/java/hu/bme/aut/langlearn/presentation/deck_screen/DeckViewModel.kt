@@ -48,8 +48,4 @@ class DeckViewModel @Inject constructor(
     fun onDeckClick(deck: Deck) {
 
     }
-
-    fun onAddDeckClick() {
-        repository.addDeck(Deck("France", listOf(Word("Baguette", "Baguette"))))
-    }
 }

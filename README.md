@@ -2,9 +2,9 @@
 
 ## Project Timeline
 
-- [ ] **Week 1-2: Firebase**
+- [X] **Week 1-2: Firebase**
   - [X] Implement user registration and login.
-  - [ ] Develop deck creation and management features.
+  - [X] Develop deck creation and management features.
 
 - [ ]  **Week 3-6: Games**
   - [ ] Create flashcards and quiz functionalities.

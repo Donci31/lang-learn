@@ -54,7 +54,9 @@ fun DecksScreen(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(all = 16.dp),
-                onClick = viewModel::onAddDeckClick
+                onClick = {
+                    navController.navigate("add_new_deck")
+                }
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Add,
