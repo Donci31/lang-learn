@@ -9,7 +9,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.AuthRepository
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -21,7 +20,18 @@ class SignUpViewModel @Inject constructor(
 ) : ViewModel() {
 
     var email by mutableStateOf("")
+        private set
+
     var password by mutableStateOf("")
+        private set
+
+    fun updateEmail(input: String) {
+        email = input
+    }
+
+    fun updatePassword(input: String) {
+        password = input
+    }
 
     private val _signUpState = MutableStateFlow(SignUpState())
     val signUpState = _signUpState.asStateFlow()

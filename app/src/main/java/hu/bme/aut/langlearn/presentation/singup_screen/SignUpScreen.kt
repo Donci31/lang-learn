@@ -55,7 +55,7 @@ fun SignUpScreen(
 
             OutlinedTextField(
                 value = viewModel.email,
-                onValueChange = { viewModel.email = it },
+                onValueChange = viewModel::updateEmail,
                 label = { Text("Email") },
                 leadingIcon = {
                     Icon(
@@ -69,7 +69,7 @@ fun SignUpScreen(
 
             OutlinedTextField(
                 value = viewModel.password,
-                onValueChange = { viewModel.password = it },
+                onValueChange = viewModel::updatePassword,
                 label = { Text("Password") },
                 leadingIcon = {
                     Icon(
