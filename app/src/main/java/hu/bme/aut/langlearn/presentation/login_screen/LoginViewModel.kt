@@ -1,5 +1,6 @@
 package hu.bme.aut.langlearn.presentation.login_screen
 
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.AuthRepository
+import hu.bme.aut.langlearn.presentation.singup_screen.SignUpState
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,5 +43,9 @@ class LoginViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun resetState() {
+        _loginState.value = LoginState()
     }
 }

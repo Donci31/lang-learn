@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.AuthRepository
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -41,5 +42,9 @@ class SignUpViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun resetState() {
+        _signUpState.value = SignUpState()
     }
 }
