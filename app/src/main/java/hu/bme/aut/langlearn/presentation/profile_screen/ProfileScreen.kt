@@ -28,14 +28,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import hu.bme.aut.langlearn.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
-    username: String,
-    learningLanguages: List<String>,
-    achievements: List<String>,
+    navController: NavController,
+    viewModel: ProfileViewModel = hiltViewModel(),
 ) {
     Scaffold(
         topBar = {
@@ -44,7 +45,11 @@ fun ProfileScreen(
                     Text(text = "User Profile")
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(
+                        onClick = {
+                            navController.navigate("settings")
+                        }
+                    ) {
                         Icon(
                             imageVector = Icons.Filled.Settings,
                             contentDescription = "Settings"
@@ -73,11 +78,14 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text("Username: $username", fontWeight = FontWeight.Bold)
+            Text(
+                text = "Username: ${viewModel.username}",
+                fontWeight = FontWeight.Bold
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text("Learning Languages:")
+            Text(text = "Learning Languages:")
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -85,14 +93,14 @@ fun ProfileScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                learningLanguages.forEach { language ->
+                viewModel.languages.forEach { language ->
                     Chip(text = language, modifier = Modifier.height(32.dp))
                 }
             }
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text("Achievements:", fontWeight = FontWeight.Bold)
+            Text(text = "Achievements:", fontWeight = FontWeight.Bold)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -100,7 +108,7 @@ fun ProfileScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                achievements.forEach { achievement ->
+                viewModel.achievements.forEach { achievement ->
                     Chip(text = achievement, modifier = Modifier.height(32.dp))
                 }
             }

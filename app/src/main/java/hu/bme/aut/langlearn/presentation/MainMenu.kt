@@ -14,6 +14,7 @@ import hu.bme.aut.langlearn.presentation.add_deck_screen.AddDeckScreen
 import hu.bme.aut.langlearn.presentation.deck_screen.DecksScreen
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeScreen
 import hu.bme.aut.langlearn.presentation.profile_screen.ProfileScreen
+import hu.bme.aut.langlearn.presentation.settings_screen.SettingsScreen
 
 @Composable
 fun MainMenu(
@@ -43,6 +44,7 @@ fun MainMenu(
             composable(NavItem.Practice.route) { PracticeScreen(navController) }
             composable(NavItem.Profile.route) { ProfileScreen(navController) }
             composable("add_new_deck") { AddDeckScreen(navController) }
+            composable("settings") { SettingsScreen() }
         }
     }
 }
