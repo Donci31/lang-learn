@@ -12,7 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 @Composable
 fun BottomNavigationBar(
     navController: NavController,
-    items: Array<NavItem>,
+    items: List<NavItem>,
     onItemClick: (NavItem) -> Unit,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -20,6 +20,7 @@ fun BottomNavigationBar(
     NavigationBar {
         items.forEach { item ->
             val isSelected = item.route == navBackStackEntry?.destination?.route
+
             NavigationBarItem(
                 selected = isSelected,
                 onClick = { onItemClick(item) },
@@ -27,17 +28,17 @@ fun BottomNavigationBar(
                     if (isSelected) {
                         Icon(
                             imageVector = item.selectedIcon,
-                            contentDescription = item.name
+                            contentDescription = item.label
                         )
                     } else {
                         Icon(
                             imageVector = item.unSelectedIcon,
-                            contentDescription = item.name
+                            contentDescription = item.label
                         )
                     }
                 },
                 label = {
-                    Text(text = item.name)
+                    Text(text = item.label)
                 }
             )
         }

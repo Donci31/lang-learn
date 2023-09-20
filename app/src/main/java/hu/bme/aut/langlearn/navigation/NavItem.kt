@@ -10,23 +10,29 @@ import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.ui.graphics.vector.ImageVector
 
 
-enum class NavItem(
+sealed class NavItem(
     val route: String,
+    val label: String,
     val selectedIcon: ImageVector,
-    val unSelectedIcon: ImageVector,
+    val unSelectedIcon: ImageVector
 ) {
-    Quiz(
+    data object Quiz : NavItem(
         route = "quiz",
+        label = "Quiz",
         selectedIcon = Icons.Filled.Home,
         unSelectedIcon = Icons.Outlined.Home
-    ),
-    Practice(
+    )
+
+    data object Practice : NavItem(
         route = "practice",
+        label = "Practice",
         selectedIcon = Icons.Filled.ThumbUp,
         unSelectedIcon = Icons.Outlined.ThumbUp
-    ),
-    Profile(
+    )
+
+    data object Profile : NavItem(
         route = "profile",
+        label = "Profile",
         selectedIcon = Icons.Filled.AccountCircle,
         unSelectedIcon = Icons.Outlined.AccountCircle
     )

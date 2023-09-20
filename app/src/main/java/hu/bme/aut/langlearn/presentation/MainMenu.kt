@@ -20,12 +20,13 @@ fun MainMenu(
     outerNavController: NavController,
 ) {
     val navController = rememberNavController()
+    val bottomNavItems = listOf(NavItem.Quiz, NavItem.Practice, NavItem.Profile)
 
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
                 navController = navController,
-                items = NavItem.values()
+                items = bottomNavItems
             ) { navItem ->
                 navController.navigate(navItem.route) {
                     popUpTo(navController.graph.id)
@@ -39,15 +40,9 @@ fun MainMenu(
             modifier = Modifier.padding(padding)
         ) {
             composable(NavItem.Quiz.route) { DecksScreen(navController) }
-            composable("add_new_deck") { AddDeckScreen(navController) }
             composable(NavItem.Practice.route) { PracticeScreen(navController) }
-            composable(NavItem.Profile.route) {
-                ProfileScreen(
-                    username = "User",
-                    learningLanguages = listOf("German", "French"),
-                    achievements = listOf("Beginner", "Intermediate"),
-                )
-            }
+            composable(NavItem.Profile.route) { ProfileScreen(navController) }
+            composable("add_new_deck") { AddDeckScreen(navController) }
         }
     }
 }
