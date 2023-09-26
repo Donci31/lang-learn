@@ -14,7 +14,7 @@ class ProfileViewModel @Inject constructor(
     auth: FirebaseAuth
 ): ViewModel() {
 
-    var username by mutableStateOf(auth.currentUser)
+    var username by mutableStateOf(auth.currentUser?.displayName ?: "Joe")
 
     var languages = mutableStateListOf<String>()
 

@@ -41,7 +41,7 @@ fun MainMenu(
             modifier = Modifier.padding(padding)
         ) {
             composable(NavItem.Quiz.route) { DecksScreen(navController) }
-            composable(NavItem.Practice.route) { PracticeScreen(navController) }
+            composable(NavItem.Practice.route) { PracticeScreen() }
             composable(NavItem.Profile.route) { ProfileScreen(navController) }
             composable("add_new_deck") { AddDeckScreen(navController) }
             composable("settings") { SettingsScreen() }

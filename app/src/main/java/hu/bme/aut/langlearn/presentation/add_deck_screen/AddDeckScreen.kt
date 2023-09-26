@@ -1,6 +1,5 @@
 package hu.bme.aut.langlearn.presentation.add_deck_screen
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -64,22 +63,22 @@ fun AddDeckScreen(
             }
         }
     ) { padding ->
-        Column(
-            modifier = Modifier.padding(padding)
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TextField(
-                value = viewModel.deckName,
-                onValueChange = { viewModel.deckName = it },
-                label = { Text("Deck Name") },
-                modifier = Modifier.fillMaxWidth()
-            )
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                items(viewModel.statefulWords) { word ->
-                    WordItem(word = word)
-                }
+            item {
+                TextField(
+                    value = viewModel.deckName,
+                    onValueChange = { viewModel.deckName = it },
+                    label = { Text("Deck Name") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            items(viewModel.statefulWords) { word ->
+                WordItem(word = word)
             }
         }
     }
