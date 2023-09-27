@@ -1,12 +1,14 @@
 package hu.bme.aut.langlearn.presentation.flip_card_screen
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
@@ -16,10 +18,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FlipCardScreen() {
+fun FlipCardScreen(
+    navController: NavController,
+    viewModel: FlipCardViewModel = viewModel(),
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -30,11 +38,10 @@ fun FlipCardScreen() {
         },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .padding(padding)
+            modifier = Modifier.padding(padding)
         ) {
             val progress by animateFloatAsState(
-                targetValue = 0.2f,
+                targetValue = viewModel.getProgress(),
                 label = "progress animation"
             )
             LinearProgressIndicator(
@@ -44,7 +51,8 @@ fun FlipCardScreen() {
 
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .weight(1f)
+                    .fillMaxWidth()
                     .padding(padding),
                 contentAlignment = Alignment.Center
             ) {
@@ -52,9 +60,37 @@ fun FlipCardScreen() {
                     modifier = Modifier
                         .fillMaxWidth(.8f)
                         .aspectRatio(1.5f),
-                    foreignWord = "Bueno",
-                    englishTranslation = "Good"
+                    foreignWord = viewModel.getForeignWord(),
+                    englishTranslation = viewModel.getEnglishTranslation()
                 )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Button(
+                    onClick = viewModel::goToPreviousCard,
+                    enabled = viewModel.isNotFirstWord()
+                ) {
+                    Text(text = "Previous")
+                }
+
+                if (viewModel.isLastWord()) {
+                    Button(
+                        onClick = navController::popBackStack
+                    ) {
+                        Text(text = "Finish")
+                    }
+                } else {
+                    Button(
+                        onClick = viewModel::goToNextCard
+                    ) {
+                        Text(text = "Next")
+                    }
+                }
             }
         }
     }

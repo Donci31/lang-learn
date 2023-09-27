@@ -43,7 +43,7 @@ fun MainMenu(
         ) {
             composable(NavItem.Quiz.route) { DecksScreen(navController) }
             composable(NavItem.Practice.route) { PracticeScreen(navController) }
-            composable("flip_card") { FlipCardScreen() }
+            composable("flip_card") { FlipCardScreen(navController) }
             composable(NavItem.Profile.route) { ProfileScreen(navController) }
             composable("add_new_deck") { AddDeckScreen(navController) }
             composable("settings") { SettingsScreen() }
