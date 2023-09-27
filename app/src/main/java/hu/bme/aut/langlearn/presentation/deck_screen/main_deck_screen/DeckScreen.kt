@@ -53,7 +53,7 @@ fun DecksScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                modifier = Modifier.padding(all = 16.dp),
+                modifier = Modifier.padding(16.dp),
                 onClick = {
                     navController.navigate("add_new_deck_screen")
                 }

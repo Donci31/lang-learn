@@ -53,7 +53,7 @@ fun AddDeckScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                modifier = Modifier.padding(all = 16.dp),
+                modifier = Modifier.padding(16.dp),
                 onClick = viewModel::addNewWord
             ) {
                 Icon(
@@ -73,7 +73,7 @@ fun AddDeckScreen(
                 TextField(
                     value = viewModel.deckName,
                     onValueChange = { viewModel.deckName = it },
-                    label = { Text("Deck Name") },
+                    label = { Text(text = "Deck Name") },
                     modifier = Modifier.fillMaxWidth()
                 )
             }

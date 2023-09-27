@@ -41,32 +41,32 @@ fun PracticeScreen(navController: NavController) {
                 navController = navController,
                 name = "Listening",
                 description = "Improve language by listening to words",
-                destination = "flip_card_screen"
+                destination = "listening_screen"
             )
             PracticeItem(
                 navController = navController,
                 name = "Speaking",
                 description = "Improve language by speaking",
-                destination = "flip_card_screen"
+                destination = "speaking_screen"
             )
             Divider()
             PracticeItem(
                 navController = navController,
                 name = "Quiz",
                 description = "Quiz involved with flipping cards",
-                destination = "flip_card_screen"
+                destination = "quiz_screen"
             )
             PracticeItem(
                 navController = navController,
                 name = "Multiple choice quiz",
-                description = "Improve language by listening to words",
-                destination = "flip_card_screen"
+                description = "Multiple choice quiz",
+                destination = "multiple_choice_quiz_screen"
             )
             PracticeItem(
                 navController = navController,
                 name = "Sentence",
                 description = "Complete the sentence",
-                destination = "flip_card_screen"
+                destination = "sentence_screen"
             )
         }
     }

@@ -91,7 +91,7 @@ fun LoginScreen(
 
             TextButton(
                 onClick = {
-                    navController.navigate("register")
+                    navController.navigate(route = "register")
                 }
             ) {
                 Text(text = "Don't have an account? Sign up now!")
@@ -102,7 +102,7 @@ fun LoginScreen(
             }
 
             state.isSuccess?.let {
-                navController.navigate("main_menu") {
+                navController.navigate(route = "main_menu") {
                     popUpTo(navController.graph.id)
                 }
             }

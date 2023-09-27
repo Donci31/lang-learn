@@ -15,6 +15,7 @@ import hu.bme.aut.langlearn.presentation.deck_screen.add_deck_screen.AddDeckScre
 import hu.bme.aut.langlearn.presentation.deck_screen.main_deck_screen.DecksScreen
 import hu.bme.aut.langlearn.presentation.practice_screen.flip_card_screen.FlipCardScreen
 import hu.bme.aut.langlearn.presentation.practice_screen.main_practice_screen.PracticeScreen
+import hu.bme.aut.langlearn.presentation.practice_screen.quiz_screen.QuizScreen
 import hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen.ProfileScreen
 import hu.bme.aut.langlearn.presentation.profile_screen.settings_screen.SettingsScreen
 
@@ -55,6 +56,11 @@ fun MainMenu(
             ) {
                 composable(NavItem.Practice.nestedRoute) { PracticeScreen(navController) }
                 composable("flip_card_screen") { FlipCardScreen(navController) }
+                composable("listening_screen") { FlipCardScreen(navController) }
+                composable("speaking_screen") { FlipCardScreen(navController) }
+                composable("quiz_screen") { QuizScreen(navController) }
+                composable("multiple_choice_quiz_screen") { FlipCardScreen(navController) }
+                composable("sentence_screen") { FlipCardScreen(navController) }
             }
             navigation(
                 startDestination = NavItem.Profile.nestedRoute,
