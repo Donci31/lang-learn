@@ -12,6 +12,7 @@ import hu.bme.aut.langlearn.navigation.BottomNavigationBar
 import hu.bme.aut.langlearn.navigation.NavItem
 import hu.bme.aut.langlearn.presentation.add_deck_screen.AddDeckScreen
 import hu.bme.aut.langlearn.presentation.deck_screen.DecksScreen
+import hu.bme.aut.langlearn.presentation.flip_card_screen.FlipCardScreen
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeScreen
 import hu.bme.aut.langlearn.presentation.profile_screen.ProfileScreen
 import hu.bme.aut.langlearn.presentation.settings_screen.SettingsScreen
@@ -41,7 +42,8 @@ fun MainMenu(
             modifier = Modifier.padding(padding)
         ) {
             composable(NavItem.Quiz.route) { DecksScreen(navController) }
-            composable(NavItem.Practice.route) { PracticeScreen() }
+            composable(NavItem.Practice.route) { PracticeScreen(navController) }
+            composable("flip_card") { FlipCardScreen() }
             composable(NavItem.Profile.route) { ProfileScreen(navController) }
             composable("add_new_deck") { AddDeckScreen(navController) }
             composable("settings") { SettingsScreen() }

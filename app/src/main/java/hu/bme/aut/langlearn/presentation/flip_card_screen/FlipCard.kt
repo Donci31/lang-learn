@@ -1,10 +1,9 @@
-package hu.bme.aut.langlearn.presentation.practice_screen
+package hu.bme.aut.langlearn.presentation.flip_card_screen
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -39,7 +38,7 @@ fun FlipCard(
 
     Card(
         onClick = { angle = 180f - angle },
-        modifier = modifier
+        modifier = Modifier
             .graphicsLayer {
                 rotationY = rotation.value
                 cameraDistance = 12f * density
@@ -47,15 +46,14 @@ fun FlipCard(
     ) {
         if (rotation.value <= 90f) {
             Box(
-                modifier = Modifier.fillMaxSize(),
+                modifier = modifier,
                 contentAlignment = Alignment.Center
             ) {
                 Text(text = foreignWord)
             }
         } else {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
+                modifier = modifier
                     .graphicsLayer {
                         rotationY = 180f
                     },
