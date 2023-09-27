@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.deck_screen
+package hu.bme.aut.langlearn.presentation.deck_screen.main_deck_screen
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -55,7 +55,7 @@ fun DecksScreen(
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(all = 16.dp),
                 onClick = {
-                    navController.navigate("add_new_deck")
+                    navController.navigate("add_new_deck_screen")
                 }
             ) {
                 Icon(

@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.practice_screen
+package hu.bme.aut.langlearn.presentation.practice_screen.main_practice_screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,38 +35,38 @@ fun PracticeScreen(navController: NavController) {
                 navController = navController,
                 name = "FlipCard",
                 description = "Quiz involved with flipping cards",
-                destination = "flip_card"
+                destination = "flip_card_screen"
             )
             PracticeItem(
                 navController = navController,
                 name = "Listening",
                 description = "Improve language by listening to words",
-                destination = "flip_card"
+                destination = "flip_card_screen"
             )
             PracticeItem(
                 navController = navController,
                 name = "Speaking",
                 description = "Improve language by speaking",
-                destination = "flip_card"
+                destination = "flip_card_screen"
             )
             Divider()
             PracticeItem(
                 navController = navController,
                 name = "Quiz",
                 description = "Quiz involved with flipping cards",
-                destination = "flip_card"
+                destination = "flip_card_screen"
             )
             PracticeItem(
                 navController = navController,
                 name = "Multiple choice quiz",
                 description = "Improve language by listening to words",
-                destination = "flip_card"
+                destination = "flip_card_screen"
             )
             PracticeItem(
                 navController = navController,
                 name = "Sentence",
                 description = "Complete the sentence",
-                destination = "flip_card"
+                destination = "flip_card_screen"
             )
         }
     }

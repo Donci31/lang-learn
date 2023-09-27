@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.profile_screen
+package hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf

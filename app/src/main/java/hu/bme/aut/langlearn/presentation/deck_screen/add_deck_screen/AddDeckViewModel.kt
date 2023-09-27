@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.add_deck_screen
+package hu.bme.aut.langlearn.presentation.deck_screen.add_deck_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf

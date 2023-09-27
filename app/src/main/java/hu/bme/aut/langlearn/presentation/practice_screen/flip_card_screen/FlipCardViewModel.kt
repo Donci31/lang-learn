@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.flip_card_screen
+package hu.bme.aut.langlearn.presentation.practice_screen.flip_card_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf

@@ -19,7 +19,7 @@ fun BottomNavigationBar(
 
     NavigationBar {
         items.forEach { item ->
-            val isSelected = item.route == navBackStackEntry?.destination?.route
+            val isSelected = item.route == navBackStackEntry?.destination?.parent?.route
 
             NavigationBarItem(
                 selected = isSelected,

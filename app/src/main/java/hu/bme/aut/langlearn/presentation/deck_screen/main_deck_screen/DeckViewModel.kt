@@ -1,11 +1,10 @@
-package hu.bme.aut.langlearn.presentation.deck_screen
+package hu.bme.aut.langlearn.presentation.deck_screen.main_deck_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.FirebaseRepository
 import hu.bme.aut.langlearn.domain.Deck
-import hu.bme.aut.langlearn.domain.Word
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

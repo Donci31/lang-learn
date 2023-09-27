@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.deck_screen
+package hu.bme.aut.langlearn.presentation.deck_screen.main_deck_screen
 
 import hu.bme.aut.langlearn.domain.Deck
 

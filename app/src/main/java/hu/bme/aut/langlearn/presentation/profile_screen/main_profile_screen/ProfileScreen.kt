@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.presentation.profile_screen
+package hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -47,7 +47,7 @@ fun ProfileScreen(
                 actions = {
                     IconButton(
                         onClick = {
-                            navController.navigate("settings")
+                            navController.navigate("settings_screen")
                         }
                     ) {
                         Icon(
