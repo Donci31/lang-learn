@@ -22,7 +22,7 @@ class FirebaseRepositoryImpl @Inject constructor(
     override fun addDeck(deck: Deck) {
         firestore
             .collection("decks")
-            .document(deck.name)
+            .document(deck.id)
             .set(deck)
     }
 }

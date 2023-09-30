@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.FirebaseRepository
 import hu.bme.aut.langlearn.domain.Deck
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +25,7 @@ class AddDeckViewModel @Inject constructor(
     fun addNewDeck() {
         repository.addDeck(
             Deck(
+                id  = UUID.randomUUID().toString(),
                 name = deckName,
                 words = statefulWords.map { it.toWord() }
             )
