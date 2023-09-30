@@ -1,34 +1,23 @@
 package hu.bme.aut.langlearn.data
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.snapshots
+import com.google.firebase.firestore.ktx.toObjects
 import hu.bme.aut.langlearn.domain.Deck
-import hu.bme.aut.langlearn.util.Resource
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FirebaseRepositoryImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
 ) : FirebaseRepository {
-    override fun getAllDecks(): Flow<Resource<List<Deck>>> = flow {
-        emit(Resource.Loading())
-
-        val decks = firestore
+    override fun getAllDecks(): Flow<List<Deck>> =
+        firestore
             .collection("decks")
-            .get()
-            .await()
+            .snapshots()
             .map {
-                it.toObject(Deck::class.java)
+                it.toObjects()
             }
-
-        emit(Resource.Success(decks))
-    }.catch {
-        emit(Resource.Error(message = "Error fetching deck list: ${it.message}"))
-    }.flowOn(Dispatchers.IO)
 
     override fun addDeck(deck: Deck) {
         firestore

@@ -19,7 +19,7 @@ import hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen.Prof
 import hu.bme.aut.langlearn.presentation.profile_screen.settings_screen.SettingsScreen
 
 @Composable
-fun MainMenu(
+fun MainMenuScreen(
     logoutOnClick: () -> Unit,
 ) {
     val navController = rememberNavController()

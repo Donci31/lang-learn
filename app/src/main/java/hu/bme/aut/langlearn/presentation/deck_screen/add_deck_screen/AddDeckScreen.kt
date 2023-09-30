@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import hu.bme.aut.langlearn.navigation.NavItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,9 +38,7 @@ fun AddDeckScreen(
                 actions = {
                     IconButton(onClick = {
                         viewModel.addNewDeck()
-                        navController.navigate(NavItem.Quiz.route) {
-                            popUpTo(navController.graph.id)
-                        }
+                        navController.popBackStack()
                     }) {
                         Icon(
                             imageVector = Icons.Outlined.Send,
