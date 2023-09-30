@@ -7,16 +7,21 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.bme.aut.langlearn.data.AuthRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    auth: FirebaseAuth
+    private val repository: AuthRepository
 ): ViewModel() {
 
-    var username by mutableStateOf(auth.currentUser?.displayName ?: "Joe")
+    var username by mutableStateOf(repository.getCurrentUser()?.displayName)
 
     var languages = mutableStateListOf<String>()
 
     var achievements = mutableStateListOf<String>()
+
+    fun logout() {
+        repository.logout()
+    }
 }

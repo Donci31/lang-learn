@@ -20,7 +20,7 @@ fun PracticeScreen(navController: NavController) {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Practice Screen")
+                    Text(text = "Practice")
                 }
             )
         },

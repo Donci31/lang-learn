@@ -2,6 +2,7 @@ package hu.bme.aut.langlearn.data
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -33,4 +34,10 @@ class AuthRepositoryImpl @Inject constructor(
     }.catch {
         emit(Resource.Error(message = it.message.toString()))
     }.flowOn(Dispatchers.IO)
+
+    override fun getCurrentUser(): FirebaseUser? = firebaseAuth.currentUser
+
+    override fun logout() {
+        firebaseAuth.signOut()
+    }
 }

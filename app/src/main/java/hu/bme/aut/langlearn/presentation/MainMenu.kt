@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
@@ -21,7 +20,7 @@ import hu.bme.aut.langlearn.presentation.profile_screen.settings_screen.Settings
 
 @Composable
 fun MainMenu(
-    outerNavController: NavController,
+    logoutOnClick: () -> Unit,
 ) {
     val navController = rememberNavController()
     val bottomNavItems = listOf(NavItem.Quiz, NavItem.Practice, NavItem.Profile)
@@ -66,7 +65,12 @@ fun MainMenu(
                 startDestination = NavItem.Profile.nestedRoute,
                 route = NavItem.Profile.route
             ) {
-                composable(NavItem.Profile.nestedRoute) { ProfileScreen(navController) }
+                composable(NavItem.Profile.nestedRoute) {
+                    ProfileScreen(
+                        navController = navController,
+                        logoutOnClick = logoutOnClick
+                    )
+                }
                 composable("settings_screen") { SettingsScreen() }
             }
         }

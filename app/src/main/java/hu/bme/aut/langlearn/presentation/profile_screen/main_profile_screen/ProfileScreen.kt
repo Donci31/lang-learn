@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,6 +37,7 @@ import hu.bme.aut.langlearn.R
 @Composable
 fun ProfileScreen(
     navController: NavController,
+    logoutOnClick: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel(),
 ) {
     Scaffold(
@@ -111,6 +113,18 @@ fun ProfileScreen(
                 viewModel.achievements.forEach { achievement ->
                     Chip(text = achievement, modifier = Modifier.height(32.dp))
                 }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = {
+                    viewModel.logout()
+                    logoutOnClick()
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Logout")
             }
         }
     }
