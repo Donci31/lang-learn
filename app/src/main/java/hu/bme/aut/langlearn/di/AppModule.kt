@@ -11,8 +11,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hu.bme.aut.langlearn.data.AuthRepository
 import hu.bme.aut.langlearn.data.AuthRepositoryImpl
-import hu.bme.aut.langlearn.data.FirebaseRepository
-import hu.bme.aut.langlearn.data.FirebaseRepositoryImpl
+import hu.bme.aut.langlearn.data.FirestoreRepository
+import hu.bme.aut.langlearn.data.FirestoreRepositoryImpl
 import javax.inject.Singleton
 
 @Module
@@ -34,6 +34,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesFirestoreRepositoryImpl(firestore: FirebaseFirestore): FirebaseRepository =
-        FirebaseRepositoryImpl(firestore)
+    fun providesFirestoreRepositoryImpl(firestore: FirebaseFirestore): FirestoreRepository =
+        FirestoreRepositoryImpl(firestore)
 }
