@@ -19,8 +19,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -36,80 +34,77 @@ fun LoginScreen(
     navController: NavController,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
-    val state by viewModel.loginState.collectAsState(LoginState())
-
     Surface {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Login",
-                fontWeight = FontWeight.Medium,
-                style = MaterialTheme.typography.displayLarge
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = viewModel.email,
-                onValueChange = viewModel::updateEmail,
-                label = { Text("Email") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Person,
-                        contentDescription = "Email icon"
-                    )
-                }
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = viewModel.password,
-                onValueChange = viewModel::updatePassword,
-                label = { Text("Password") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Lock,
-                        contentDescription = "Password icon"
-                    )
-                },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = viewModel::loginUser
-            ) {
-                Text(text = "Login")
-            }
-
-            TextButton(
-                onClick = {
-                    navController.navigate(route = "register")
-                }
-            ) {
-                Text(text = "Don't have an account? Sign up now!")
-            }
-
-            if (state.isLoading) {
+            if (viewModel.loginState.isLoading) {
                 CircularProgressIndicator()
-            }
+            } else {
+                Text(
+                    text = "Login",
+                    fontWeight = FontWeight.Medium,
+                    style = MaterialTheme.typography.displayLarge
+                )
 
-            state.isSuccess?.let {
-                navController.navigate(route = "main_menu") {
-                    popUpTo(navController.graph.id)
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedTextField(
+                    value = viewModel.email,
+                    onValueChange = viewModel::updateEmail,
+                    label = { Text("Email") },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Person,
+                            contentDescription = "Email icon"
+                        )
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedTextField(
+                    value = viewModel.password,
+                    onValueChange = viewModel::updatePassword,
+                    label = { Text("Password") },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Lock,
+                            contentDescription = "Password icon"
+                        )
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = viewModel::loginUser
+                ) {
+                    Text(text = "Login")
                 }
-            }
 
-            state.isError?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                viewModel.resetState()
+                TextButton(
+                    onClick = {
+                        navController.navigate(route = "register")
+                    }
+                ) {
+                    Text(text = "Don't have an account? Sign up now!")
+                }
+
+                viewModel.loginState.isSuccess?.let {
+                    navController.navigate(route = "main_menu") {
+                        popUpTo(navController.graph.id)
+                    }
+                }
+
+                viewModel.loginState.isError?.let {
+                    Toast.makeText(LocalContext.current, it, Toast.LENGTH_SHORT).show()
+                    viewModel.resetState()
+                }
             }
         }
     }

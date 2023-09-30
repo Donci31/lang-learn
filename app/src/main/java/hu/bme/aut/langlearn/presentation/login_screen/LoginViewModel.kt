@@ -8,10 +8,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.AuthRepository
 import hu.bme.aut.langlearn.util.Resource
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,28 +31,29 @@ class LoginViewModel @Inject constructor(
         password = input
     }
 
-    private val _loginState = MutableStateFlow(LoginState())
-    val loginState = _loginState.asStateFlow()
+    var loginState by mutableStateOf(LoginState())
 
     fun loginUser() {
-        repository.loginUser(email, password).onEach { result ->
-            when (result) {
-                is Resource.Success -> {
-                    _loginState.value = LoginState(isSuccess = "Success")
-                }
+        viewModelScope.launch {
+            repository.loginUser(email, password).collectLatest { result ->
+                loginState = when (result) {
+                    is Resource.Success -> {
+                        LoginState(isSuccess = "Success")
+                    }
 
-                is Resource.Loading -> {
-                    _loginState.value = LoginState(isLoading = true)
-                }
+                    is Resource.Loading -> {
+                        LoginState(isLoading = true)
+                    }
 
-                is Resource.Error -> {
-                    _loginState.value = LoginState(isError = result.message)
+                    is Resource.Error -> {
+                        LoginState(isError = result.message)
+                    }
                 }
             }
-        }.launchIn(viewModelScope)
+        }
     }
 
     fun resetState() {
-        _loginState.value = LoginState()
+        loginState = LoginState()
     }
 }

@@ -19,8 +19,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -36,74 +34,71 @@ fun SignUpScreen(
     navController: NavController,
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
-    val state by viewModel.signUpState.collectAsState()
-
     Surface {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Sign Up",
-                fontWeight = FontWeight.Medium,
-                style = MaterialTheme.typography.displayLarge
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = viewModel.email,
-                onValueChange = viewModel::updateEmail,
-                label = { Text("Email") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Person,
-                        contentDescription = "Email icon"
-                    )
-                }
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = viewModel.password,
-                onValueChange = viewModel::updatePassword,
-                label = { Text("Password") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Lock,
-                        contentDescription = "Password icon"
-                    )
-                },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = viewModel::signUpUser
-            ) {
-                Text(text = "Sign Up")
-            }
-
-            TextButton(
-                onClick = {
-                    navController.navigate("login")
-                }
-            ) {
-                Text(text = "Already have an account? Login here!")
-            }
-
-            if (state.isLoading) {
+            if (viewModel.signUpState.isLoading) {
                 CircularProgressIndicator()
-            }
+            } else {
+                Text(
+                    text = "Sign Up",
+                    fontWeight = FontWeight.Medium,
+                    style = MaterialTheme.typography.displayLarge
+                )
 
-            (state.isSuccess ?: state.isError)?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                viewModel.resetState()
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedTextField(
+                    value = viewModel.email,
+                    onValueChange = viewModel::updateEmail,
+                    label = { Text("Email") },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Person,
+                            contentDescription = "Email icon"
+                        )
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedTextField(
+                    value = viewModel.password,
+                    onValueChange = viewModel::updatePassword,
+                    label = { Text("Password") },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Lock,
+                            contentDescription = "Password icon"
+                        )
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = viewModel::signUpUser
+                ) {
+                    Text(text = "Sign Up")
+                }
+
+                TextButton(
+                    onClick = {
+                        navController.navigate("login")
+                    }
+                ) {
+                    Text(text = "Already have an account? Login here!")
+                }
+
+                (viewModel.signUpState.isSuccess ?: viewModel.signUpState.isError)?.let {
+                    Toast.makeText(LocalContext.current, it, Toast.LENGTH_SHORT).show()
+                    viewModel.resetState()
+                }
             }
         }
     }
