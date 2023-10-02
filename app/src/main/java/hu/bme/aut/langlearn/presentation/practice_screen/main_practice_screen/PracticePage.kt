@@ -78,10 +78,10 @@ fun PracticePage(
                     onDismissRequest = { expanded = false }
                 ) {
                     deckNameList.forEachIndexed { index, name ->
-                        selectedIndex = index
                         DropdownMenuItem(
                             text = { Text(text = name.second) },
                             onClick = {
+                                selectedIndex = index
                                 selectedText = name.second
                                 expanded = false
                             }
