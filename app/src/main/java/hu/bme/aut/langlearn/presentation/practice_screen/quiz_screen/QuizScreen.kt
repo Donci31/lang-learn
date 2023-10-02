@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -38,6 +39,8 @@ fun QuizScreen(
 ) {
     var userInput by rememberSaveable { mutableStateOf("") }
 
+    val deckState by viewModel.cardList.collectAsState(initial = null)
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -47,57 +50,61 @@ fun QuizScreen(
             )
         },
     ) { padding ->
-        Column(
-            modifier = Modifier.padding(padding)
-        ) {
-            val progress by animateFloatAsState(
-                targetValue = viewModel.getProgress(),
-                label = "progress animation"
-            )
-            LinearProgressIndicator(
-                progress = progress,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(padding),
-                contentAlignment = Alignment.Center
+        deckState?.let { deck ->
+            Column(
+                modifier = Modifier.padding(padding)
             ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(64.dp)
-                ) {
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = viewModel.getForeignWord(),
-                        textAlign = TextAlign.Center,
-                        style = typography.headlineMedium,
-                        fontWeight = FontWeight.Bold
-                    )
+                val progress by animateFloatAsState(
+                    targetValue = (viewModel.currentCardIndex + 1).toFloat() / deck.words.size,
+                    label = "progress animation"
+                )
+                LinearProgressIndicator(
+                    progress = progress,
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        value = userInput,
-                        onValueChange = { userInput = it },
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                if (viewModel.isLastWord()) {
-                                    navController.popBackStack()
-                                } else {
-                                    viewModel.goToNextWord()
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .padding(padding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(64.dp)
+                    ) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = deck.words[viewModel.currentCardIndex].foreignWord,
+                            textAlign = TextAlign.Center,
+                            style = typography.headlineMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        OutlinedTextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            value = userInput,
+                            onValueChange = { userInput = it },
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                imeAction = ImeAction.Done
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onDone = {
+                                    if (viewModel.currentCardIndex == deck.words.size - 1) {
+                                        navController.popBackStack()
+                                    } else {
+                                        if (viewModel.currentCardIndex > 0) {
+                                            viewModel.currentCardIndex--
+                                        }
+                                    }
                                 }
-                            }
-                        ),
-                        label = { Text("Your translation") }
-                    )
+                            ),
+                            label = { Text("Your translation") }
+                        )
+                    }
                 }
             }
         }

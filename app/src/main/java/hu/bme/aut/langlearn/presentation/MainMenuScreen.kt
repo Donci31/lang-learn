@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import hu.bme.aut.langlearn.navigation.BottomNavigationBar
 import hu.bme.aut.langlearn.navigation.NavItem
 import hu.bme.aut.langlearn.presentation.deck_screen.add_deck_screen.AddDeckScreen
@@ -54,7 +56,9 @@ fun MainMenuScreen(
                 route = NavItem.Practice.route
             ) {
                 composable(NavItem.Practice.nestedRoute) { PracticeScreen(navController) }
-                composable("flip_card_screen") { FlipCardScreen(navController) }
+                composable("flip_card_screen/{deckId}") {
+                    FlipCardScreen(navController)
+                }
                 composable("listening_screen") { FlipCardScreen(navController) }
                 composable("speaking_screen") { FlipCardScreen(navController) }
                 composable("quiz_screen") { QuizScreen(navController) }

@@ -1,11 +1,15 @@
 package hu.bme.aut.langlearn.data
 
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import hu.bme.aut.langlearn.domain.Deck
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class FirestoreRepositoryImpl @Inject constructor(
@@ -19,10 +23,19 @@ class FirestoreRepositoryImpl @Inject constructor(
                 it.toObjects()
             }
 
-    override fun getDeckNames(): Flow<List<String>> =
+    override fun getDeck(deckId: String): Flow<Deck?> =
+        firestore
+            .collection("decks")
+            .document(deckId)
+            .snapshots()
+            .map {
+                it.toObject<Deck>()
+            }
+
+    override fun getDeckIdsAndNames(): Flow<List<Pair<String, String>>> =
         getAllDecks().map { deckList ->
             deckList.map { deck ->
-                deck.name
+                Pair(deck.id, deck.name)
             }
         }
 

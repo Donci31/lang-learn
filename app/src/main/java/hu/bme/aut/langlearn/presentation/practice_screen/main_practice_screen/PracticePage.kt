@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -23,15 +24,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PracticePage(
-    deckNameList: List<String>,
-    practiceItems: List<PracticeItem>,
-    page: Int,
+    navController: NavController,
+    deckNameList: List<Pair<String, String>>,
+    practiceItem: PracticeItem,
 ) {
-    var selectedText by rememberSaveable { mutableStateOf(deckNameList.first()) }
+    var selectedText by rememberSaveable { mutableStateOf(deckNameList.first().second) }
+    var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
     var expanded by rememberSaveable { mutableStateOf(false) }
 
     Column(
@@ -40,12 +43,12 @@ fun PracticePage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = practiceItems[page].name,
+            text = practiceItem.name,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.displayLarge
         )
         Text(
-            text = practiceItems[page].description,
+            text = practiceItem.description,
             textAlign = TextAlign.Center
         )
         Box(
@@ -74,11 +77,12 @@ fun PracticePage(
                     expanded = expanded,
                     onDismissRequest = { expanded = false }
                 ) {
-                    deckNameList.forEach { name ->
+                    deckNameList.forEachIndexed { index, name ->
+                        selectedIndex = index
                         DropdownMenuItem(
-                            text = { Text(text = name) },
+                            text = { Text(text = name.second) },
                             onClick = {
-                                selectedText = name
+                                selectedText = name.second
                                 expanded = false
                             }
                         )
@@ -87,7 +91,11 @@ fun PracticePage(
             }
         }
         Button(
-            onClick = { },
+            onClick = {
+                navController.navigate(
+                    "${practiceItem.destination}/${deckNameList[selectedIndex].first}"
+                )
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)

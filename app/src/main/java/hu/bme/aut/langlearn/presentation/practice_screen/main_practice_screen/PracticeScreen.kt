@@ -68,7 +68,7 @@ fun PracticeScreen(
             )
         },
     ) { padding ->
-        deckNameListState?.let { deckNames ->
+        deckNameListState?.let { deckIdsAndNames ->
             Column(
                 modifier = Modifier.padding(padding)
             ) {
@@ -77,9 +77,9 @@ fun PracticeScreen(
                     state = pagerState
                 ) { page ->
                     PracticePage(
-                        deckNameList = deckNames,
-                        practiceItems = practiceItems,
-                        page = page
+                        navController = navController,
+                        deckNameList = deckIdsAndNames,
+                        practiceItem = practiceItems[page]
                     )
                 }
                 Row(

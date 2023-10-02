@@ -6,15 +6,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +32,8 @@ fun FlipCardScreen(
     navController: NavController,
     viewModel: PracticeViewModel = hiltViewModel(),
 ) {
+    val deckState by viewModel.cardList.collectAsState(initial = null)
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -38,61 +43,76 @@ fun FlipCardScreen(
             )
         },
     ) { padding ->
-        Column(
-            modifier = Modifier.padding(padding)
-        ) {
-            val progress by animateFloatAsState(
-                targetValue = viewModel.getProgress(),
-                label = "progress animation"
-            )
-            LinearProgressIndicator(
-                progress = progress,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(padding),
-                contentAlignment = Alignment.Center
+        deckState?.let { deck ->
+            Column(
+                modifier = Modifier.padding(padding)
             ) {
-                FlipCard(
-                    modifier = Modifier
-                        .fillMaxWidth(.8f)
-                        .aspectRatio(1.5f),
-                    foreignWord = viewModel.getForeignWord(),
-                    englishTranslation = viewModel.getEnglishTranslation()
+                val progress by animateFloatAsState(
+                    targetValue = (viewModel.currentCardIndex + 1).toFloat() / deck.words.size,
+                    label = "progress animation"
                 )
-            }
+                LinearProgressIndicator(
+                    progress = progress,
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Button(
-                    onClick = viewModel::goToPreviousWord,
-                    enabled = viewModel.isNotFirstWord()
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .padding(padding),
+                    contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Previous")
+                    FlipCard(
+                        modifier = Modifier
+                            .fillMaxWidth(.8f)
+                            .aspectRatio(1.5f),
+                        foreignWord = deck.words[viewModel.currentCardIndex].foreignWord,
+                        englishTranslation = deck.words[viewModel.currentCardIndex].englishTranslation
+                    )
                 }
 
-                if (viewModel.isLastWord()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     Button(
-                        onClick = navController::popBackStack
+                        onClick = {
+                            if (viewModel.currentCardIndex > 0) {
+                                viewModel.currentCardIndex--
+                            }
+                        },
+                        enabled = viewModel.currentCardIndex > 0
                     ) {
-                        Text(text = "Finish")
+                        Text(text = "Previous")
                     }
-                } else {
-                    Button(
-                        onClick = viewModel::goToNextWord
-                    ) {
-                        Text(text = "Next")
+
+                    if (viewModel.currentCardIndex == deck.words.size - 1) {
+                        Button(
+                            onClick = navController::popBackStack
+                        ) {
+                            Text(text = "Finish")
+                        }
+                    } else {
+                        Button(
+                            onClick = {
+                                if (viewModel.currentCardIndex < deck.words.size - 1) {
+                                    viewModel.currentCardIndex++
+                                }
+                            }
+                        ) {
+                            Text(text = "Next")
+                        }
                     }
                 }
             }
+        } ?: Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
         }
     }
 }

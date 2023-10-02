@@ -11,5 +11,5 @@ class PracticeScreenViewModel @Inject constructor(
     repository: FirestoreRepository
 ): ViewModel() {
 
-    val deckNameList = repository.getDeckNames()
+    val deckNameList = repository.getDeckIdsAndNames()
 }
