@@ -11,7 +11,7 @@ class DeckViewModel @Inject constructor(
     repository: FirestoreRepository,
 ) : ViewModel() {
 
-    val deckListState = repository.getAllDecks()
+    val deckList = repository.getAllDecks()
 
     fun onDeckClick(deck: Deck) {
     }

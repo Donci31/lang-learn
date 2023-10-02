@@ -6,5 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface FirestoreRepository {
     fun getAllDecks(): Flow<List<Deck>>
 
+    fun getDeckNames(): Flow<List<String>>
+
     fun addDeck(deck: Deck)
 }

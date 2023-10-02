@@ -92,7 +92,7 @@ fun QuizScreen(
                                 if (viewModel.isLastWord()) {
                                     navController.popBackStack()
                                 } else {
-                                    viewModel.goToNextCard()
+                                    viewModel.goToNextWord()
                                 }
                             }
                         ),

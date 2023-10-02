@@ -31,7 +31,7 @@ fun DecksScreen(
     navController: NavController,
     viewModel: DeckViewModel = hiltViewModel(),
 ) {
-    val decks by viewModel.deckListState.collectAsState(initial = null)
+    val deckListState by viewModel.deckList.collectAsState(initial = null)
 
     Scaffold(
         topBar = {
@@ -57,7 +57,7 @@ fun DecksScreen(
             }
         }
     ) { padding ->
-        decks?.let { decks ->
+        deckListState?.let { decks ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = padding,

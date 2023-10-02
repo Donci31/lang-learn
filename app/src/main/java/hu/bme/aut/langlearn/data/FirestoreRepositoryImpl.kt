@@ -19,6 +19,13 @@ class FirestoreRepositoryImpl @Inject constructor(
                 it.toObjects()
             }
 
+    override fun getDeckNames(): Flow<List<String>> =
+        getAllDecks().map { deckList ->
+            deckList.map { deck ->
+                deck.name
+            }
+        }
+
     override fun addDeck(deck: Deck) {
         firestore
             .collection("decks")

@@ -1,13 +1,16 @@
 package hu.bme.aut.langlearn.presentation.practice_screen
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import hu.bme.aut.langlearn.data.FirestoreRepository
 import hu.bme.aut.langlearn.domain.Word
+import javax.inject.Inject
 
-open class PracticeViewModel : ViewModel() {
-    protected var currentCardIndex by mutableIntStateOf(0)
+@HiltViewModel
+class PracticeViewModel @Inject constructor(
+    private val repository: FirestoreRepository
+) : ViewModel() {
+    private var currentCardIndex = 0
 
     private val cardList = listOf(
         Word(
@@ -28,9 +31,17 @@ open class PracticeViewModel : ViewModel() {
 
     fun isLastWord(): Boolean = currentCardIndex == cardList.size - 1
 
-    fun goToNextCard() {
+    fun goToNextWord() {
         if (currentCardIndex < cardList.size - 1) {
             currentCardIndex++
         }
     }
+
+    fun goToPreviousWord() {
+        if (currentCardIndex > 0) {
+            currentCardIndex--
+        }
+    }
+
+    fun isNotFirstWord(): Boolean = currentCardIndex > 0
 }

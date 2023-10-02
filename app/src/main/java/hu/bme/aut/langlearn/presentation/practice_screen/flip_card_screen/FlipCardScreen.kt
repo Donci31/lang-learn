@@ -19,14 +19,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.lifecycle.viewmodel.compose.viewModel
+import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlipCardScreen(
     navController: NavController,
-    viewModel: FlipCardViewModel = viewModel(),
+    viewModel: PracticeViewModel = hiltViewModel(),
 ) {
     Scaffold(
         topBar = {
@@ -72,7 +73,7 @@ fun FlipCardScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
-                    onClick = viewModel::goToPreviousCard,
+                    onClick = viewModel::goToPreviousWord,
                     enabled = viewModel.isNotFirstWord()
                 ) {
                     Text(text = "Previous")
@@ -86,7 +87,7 @@ fun FlipCardScreen(
                     }
                 } else {
                     Button(
-                        onClick = viewModel::goToNextCard
+                        onClick = viewModel::goToNextWord
                     ) {
                         Text(text = "Next")
                     }
