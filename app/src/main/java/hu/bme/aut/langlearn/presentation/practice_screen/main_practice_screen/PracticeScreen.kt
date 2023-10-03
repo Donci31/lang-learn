@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,27 +37,9 @@ fun PracticeScreen(
     navController: NavController,
     viewModel: PracticeScreenViewModel = hiltViewModel(),
 ) {
-    val practiceItems = listOf(
-        PracticeItem(
-            name = "FlipCard",
-            description = "Quiz involved with flipping cards",
-            destination = "flip_card_screen"
-        ),
-        PracticeItem(
-            name = "Quiz",
-            description = "Multiple choice quiz",
-            destination = "multiple_choice_quiz_screen"
-        ),
-        PracticeItem(
-            name = "Sentence",
-            description = "Complete the sentence",
-            destination = "sentence_screen"
-        )
-    )
+    val decks by viewModel.decks.collectAsState(initial = null)
 
-    val deckNameListState by viewModel.deckNameList.collectAsState(initial = null)
-
-    val pageCount = practiceItems.size
+    val pageCount = viewModel.practiceItems.size
     val pagerState = rememberPagerState(pageCount = { pageCount })
 
     Scaffold(
@@ -68,7 +51,7 @@ fun PracticeScreen(
             )
         },
     ) { padding ->
-        deckNameListState?.let { deckIdsAndNames ->
+        decks?.let { decks ->
             Column(
                 modifier = Modifier.padding(padding)
             ) {
@@ -78,8 +61,8 @@ fun PracticeScreen(
                 ) { page ->
                     PracticePage(
                         navController = navController,
-                        deckNameList = deckIdsAndNames,
-                        practiceItem = practiceItems[page]
+                        deckNameList = decks,
+                        practicePageState = viewModel.practicePageStates[page]
                     )
                 }
                 Row(

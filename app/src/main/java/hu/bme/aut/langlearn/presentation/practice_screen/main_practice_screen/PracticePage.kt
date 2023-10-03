@@ -15,40 +15,32 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import hu.bme.aut.langlearn.domain.Deck
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PracticePage(
     navController: NavController,
-    deckNameList: List<Pair<String, String>>,
-    practiceItem: PracticeItem,
+    deckNameList: List<Deck>,
+    practicePageState: PracticePageState,
 ) {
-    var selectedText by rememberSaveable { mutableStateOf(deckNameList.first().second) }
-    var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
-    var expanded by rememberSaveable { mutableStateOf(false) }
-
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = practiceItem.name,
+            text = practicePageState.practiceItem.name,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.displayLarge
         )
         Text(
-            text = practiceItem.description,
+            text = practicePageState.practiceItem.description,
             textAlign = TextAlign.Center
         )
         Box(
@@ -58,32 +50,31 @@ fun PracticePage(
             contentAlignment = Alignment.Center
         ) {
             ExposedDropdownMenuBox(
-                expanded = expanded,
+                expanded = practicePageState.expanded,
                 onExpandedChange = {
-                    expanded = !expanded
+                    practicePageState.expanded = !practicePageState.expanded
                 }
             ) {
                 TextField(
-                    value = selectedText,
+                    value = practicePageState.selectedDeck.name,
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = practicePageState.expanded)
                     },
                     modifier = Modifier.menuAnchor()
                 )
 
                 ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
+                    expanded = practicePageState.expanded,
+                    onDismissRequest = { practicePageState.expanded = false }
                 ) {
-                    deckNameList.forEachIndexed { index, name ->
+                    deckNameList.forEach { deck ->
                         DropdownMenuItem(
-                            text = { Text(text = name.second) },
+                            text = { Text(text = deck.name) },
                             onClick = {
-                                selectedIndex = index
-                                selectedText = name.second
-                                expanded = false
+                                practicePageState.selectedDeck = deck
+                                practicePageState.expanded = false
                             }
                         )
                     }
@@ -92,9 +83,11 @@ fun PracticePage(
         }
         Button(
             onClick = {
-                navController.navigate(
-                    "${practiceItem.destination}/${deckNameList[selectedIndex].first}"
-                )
+                if (practicePageState.selectedDeck.name != "Choose a deck") {
+                    navController.navigate(
+                        "${practicePageState.practiceItem.destination}/${practicePageState.selectedDeck.id}"
+                    )
+                }
             },
             modifier = Modifier
                 .fillMaxWidth()

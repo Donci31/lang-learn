@@ -17,7 +17,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,18 +31,16 @@ fun FlipCardScreen(
     navController: NavController,
     viewModel: PracticeViewModel = hiltViewModel(),
 ) {
-    val deckState by viewModel.cardList.collectAsState(initial = null)
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "FlipCard Screen")
-                }
-            )
-        },
-    ) { padding ->
-        deckState?.let { deck ->
+    viewModel.deck?.let { deck ->
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(text = deck.name)
+                    }
+                )
+            },
+        ) { padding ->
             Column(
                 modifier = Modifier.padding(padding)
             ) {
@@ -108,11 +105,11 @@ fun FlipCardScreen(
                     }
                 }
             }
-        } ?: Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
         }
+    } ?: Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }

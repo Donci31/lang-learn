@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.FirestoreRepository
+import hu.bme.aut.langlearn.domain.Deck
 import hu.bme.aut.langlearn.domain.Word
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
@@ -23,5 +24,11 @@ class PracticeViewModel @Inject constructor(
 
     var currentCardIndex by mutableIntStateOf(0)
 
-    val cardList = repository.getDeck(deckId)
+    var deck: Deck? = null
+
+    init {
+        viewModelScope.launch {
+            deck = repository.getDeck(deckId)
+        }
+    }
 }

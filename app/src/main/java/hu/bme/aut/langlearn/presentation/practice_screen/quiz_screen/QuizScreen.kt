@@ -4,10 +4,12 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme.typography
@@ -16,7 +18,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -27,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 
@@ -35,22 +36,20 @@ import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 @Composable
 fun QuizScreen(
     navController: NavController,
-    viewModel: PracticeViewModel = viewModel(),
+    viewModel: PracticeViewModel = hiltViewModel(),
 ) {
     var userInput by rememberSaveable { mutableStateOf("") }
 
-    val deckState by viewModel.cardList.collectAsState(initial = null)
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Quiz Screen")
-                }
-            )
-        },
-    ) { padding ->
-        deckState?.let { deck ->
+    viewModel.deck?.let { deck ->
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(text = "Quiz Screen")
+                    }
+                )
+            },
+        ) { padding ->
             Column(
                 modifier = Modifier.padding(padding)
             ) {
@@ -108,5 +107,10 @@ fun QuizScreen(
                 }
             }
         }
+    } ?: Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }
