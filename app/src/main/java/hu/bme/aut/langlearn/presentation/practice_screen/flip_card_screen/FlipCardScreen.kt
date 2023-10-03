@@ -45,7 +45,7 @@ fun FlipCardScreen(
                 modifier = Modifier.padding(padding)
             ) {
                 val progress by animateFloatAsState(
-                    targetValue = (viewModel.currentCardIndex + 1).toFloat() / deck.words.size,
+                    targetValue = viewModel.getProgress(),
                     label = "progress animation"
                 )
                 LinearProgressIndicator(
@@ -64,8 +64,8 @@ fun FlipCardScreen(
                         modifier = Modifier
                             .fillMaxWidth(.8f)
                             .aspectRatio(1.5f),
-                        foreignWord = deck.words[viewModel.currentCardIndex].foreignWord,
-                        englishTranslation = deck.words[viewModel.currentCardIndex].englishTranslation
+                        foreignWord = viewModel.getForeignWord(),
+                        englishTranslation = viewModel.getEnglishTranslation()
                     )
                 }
 
@@ -76,17 +76,13 @@ fun FlipCardScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
-                        onClick = {
-                            if (viewModel.currentCardIndex > 0) {
-                                viewModel.currentCardIndex--
-                            }
-                        },
-                        enabled = viewModel.currentCardIndex > 0
+                        onClick = viewModel::goToPreviousWord,
+                        enabled = viewModel.isNotFirstWord()
                     ) {
                         Text(text = "Previous")
                     }
 
-                    if (viewModel.currentCardIndex == deck.words.size - 1) {
+                    if (viewModel.isLastWord()) {
                         Button(
                             onClick = navController::popBackStack
                         ) {
@@ -94,11 +90,7 @@ fun FlipCardScreen(
                         }
                     } else {
                         Button(
-                            onClick = {
-                                if (viewModel.currentCardIndex < deck.words.size - 1) {
-                                    viewModel.currentCardIndex++
-                                }
-                            }
+                            onClick = viewModel::goToNextWord
                         ) {
                             Text(text = "Next")
                         }

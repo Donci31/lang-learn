@@ -10,8 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.FirestoreRepository
 import hu.bme.aut.langlearn.domain.Deck
 import hu.bme.aut.langlearn.domain.Word
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,13 +20,38 @@ class PracticeViewModel @Inject constructor(
 ) : ViewModel() {
     private val deckId: String = checkNotNull(savedStateHandle["deckId"])
 
-    var currentCardIndex by mutableIntStateOf(0)
+    private var currentCardIndex by mutableIntStateOf(0)
 
     var deck: Deck? = null
+
+    private lateinit var cardList: List<Word>
 
     init {
         viewModelScope.launch {
             deck = repository.getDeck(deckId)
+            cardList = deck?.words!!
         }
     }
+
+    fun getProgress(): Float = (currentCardIndex + 1).toFloat() / cardList.size
+
+    fun getForeignWord(): String = cardList[currentCardIndex].foreignWord
+
+    fun getEnglishTranslation(): String = cardList[currentCardIndex].englishTranslation
+
+    fun isLastWord(): Boolean = currentCardIndex == cardList.size - 1
+
+    fun goToNextWord() {
+        if (currentCardIndex < cardList.size - 1) {
+            currentCardIndex++
+        }
+    }
+
+    fun goToPreviousWord() {
+        if (currentCardIndex > 0) {
+            currentCardIndex--
+        }
+    }
+
+    fun isNotFirstWord(): Boolean = currentCardIndex > 0
 }

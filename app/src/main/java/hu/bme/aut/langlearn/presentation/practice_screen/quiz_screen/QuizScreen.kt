@@ -45,7 +45,7 @@ fun QuizScreen(
             topBar = {
                 TopAppBar(
                     title = {
-                        Text(text = "Quiz Screen")
+                        Text(text = deck.name)
                     }
                 )
             },
@@ -54,7 +54,7 @@ fun QuizScreen(
                 modifier = Modifier.padding(padding)
             ) {
                 val progress by animateFloatAsState(
-                    targetValue = (viewModel.currentCardIndex + 1).toFloat() / deck.words.size,
+                    targetValue = viewModel.getProgress(),
                     label = "progress animation"
                 )
                 LinearProgressIndicator(
@@ -75,7 +75,7 @@ fun QuizScreen(
                     ) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = deck.words[viewModel.currentCardIndex].foreignWord,
+                            text = viewModel.getForeignWord(),
                             textAlign = TextAlign.Center,
                             style = typography.headlineMedium,
                             fontWeight = FontWeight.Bold
@@ -92,12 +92,10 @@ fun QuizScreen(
                             ),
                             keyboardActions = KeyboardActions(
                                 onDone = {
-                                    if (viewModel.currentCardIndex == deck.words.size - 1) {
+                                    if (viewModel.isLastWord()) {
                                         navController.popBackStack()
                                     } else {
-                                        if (viewModel.currentCardIndex > 0) {
-                                            viewModel.currentCardIndex--
-                                        }
+                                        viewModel.goToNextWord()
                                     }
                                 }
                             ),
