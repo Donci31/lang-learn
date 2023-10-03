@@ -4,12 +4,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import hu.bme.aut.langlearn.navigation.BottomNavigationBar
 import hu.bme.aut.langlearn.navigation.NavItem
 import hu.bme.aut.langlearn.presentation.deck_screen.add_deck_screen.AddDeckScreen
@@ -48,22 +46,29 @@ fun MainMenuScreen(
                 startDestination = NavItem.Quiz.nestedRoute,
                 route = NavItem.Quiz.route
             ) {
-                composable(NavItem.Quiz.nestedRoute) { DecksScreen(navController) }
-                composable("add_new_deck_screen") { AddDeckScreen(navController) }
+                composable(NavItem.Quiz.nestedRoute) {
+                    DecksScreen(navController)
+                }
+                composable("add_new_deck_screen") {
+                    AddDeckScreen(navController)
+                }
             }
             navigation(
                 startDestination = NavItem.Practice.nestedRoute,
                 route = NavItem.Practice.route
             ) {
-                composable(NavItem.Practice.nestedRoute) { PracticeScreen(navController) }
+                composable(NavItem.Practice.nestedRoute) {
+                    PracticeScreen(navController)
+                }
                 composable("flip_card_screen/{deckId}") {
                     FlipCardScreen(navController)
                 }
-                composable("listening_screen") { FlipCardScreen(navController) }
-                composable("speaking_screen") { FlipCardScreen(navController) }
-                composable("quiz_screen") { QuizScreen(navController) }
-                composable("multiple_choice_quiz_screen") { FlipCardScreen(navController) }
-                composable("sentence_screen") { FlipCardScreen(navController) }
+                composable("quiz_screen/{deckId}") {
+                    QuizScreen(navController)
+                }
+                composable("sentence_screen/{deckId}") {
+                    FlipCardScreen(navController)
+                }
             }
             navigation(
                 startDestination = NavItem.Profile.nestedRoute,
@@ -75,7 +80,9 @@ fun MainMenuScreen(
                         logoutOnClick = logoutOnClick
                     )
                 }
-                composable("settings_screen") { SettingsScreen() }
+                composable("settings_screen") {
+                    SettingsScreen()
+                }
             }
         }
     }

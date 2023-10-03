@@ -13,13 +13,13 @@ class PracticeScreenViewModel @Inject constructor(
     val practiceItems = listOf(
         PracticeItem(
             name = "FlipCard",
-            description = "Quiz involved with flipping cards",
+            description = "Flipping card word practice",
             destination = "flip_card_screen"
         ),
         PracticeItem(
             name = "Quiz",
-            description = "Multiple choice quiz",
-            destination = "multiple_choice_quiz_screen"
+            description = "Type the correct translation",
+            destination = "quiz_screen"
         ),
         PracticeItem(
             name = "Sentence",
