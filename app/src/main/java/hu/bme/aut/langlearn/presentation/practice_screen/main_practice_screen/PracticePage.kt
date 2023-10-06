@@ -56,7 +56,13 @@ fun PracticePage(
                 }
             ) {
                 TextField(
-                    value = practicePageState.selectedDeck.name,
+                    value = if (deckNameList.contains(practicePageState.selectedDeck)) {
+                        practicePageState.selectedDeck.name
+                    } else if (deckNameList.isNotEmpty()) {
+                        deckNameList.first().name
+                    } else {
+                        ""
+                    },
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {

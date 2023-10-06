@@ -8,6 +8,6 @@ import hu.bme.aut.langlearn.domain.Deck
 data class PracticePageState(
     val practiceItem: PracticeItem
 ) {
-    var selectedDeck by mutableStateOf(Deck(name = "Choose a deck"))
+    var selectedDeck by mutableStateOf(Deck())
     var expanded by mutableStateOf(false)
 }
