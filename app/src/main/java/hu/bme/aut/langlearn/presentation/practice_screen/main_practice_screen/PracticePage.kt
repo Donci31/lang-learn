@@ -59,8 +59,10 @@ fun PracticePage(
                     value = if (deckNameList.contains(practicePageState.selectedDeck)) {
                         practicePageState.selectedDeck.name
                     } else if (deckNameList.isNotEmpty()) {
-                        deckNameList.first().name
+                        practicePageState.selectedDeck = deckNameList.first()
+                        practicePageState.selectedDeck.name
                     } else {
+                        practicePageState.selectedDeck = Deck()
                         ""
                     },
                     onValueChange = {},
@@ -89,7 +91,7 @@ fun PracticePage(
         }
         Button(
             onClick = {
-                if (practicePageState.selectedDeck.name != "Choose a deck") {
+                if (practicePageState.selectedDeck.name.isNotBlank()) {
                     navController.navigate(
                         "${practicePageState.practiceItem.destination}/${practicePageState.selectedDeck.id}"
                     )

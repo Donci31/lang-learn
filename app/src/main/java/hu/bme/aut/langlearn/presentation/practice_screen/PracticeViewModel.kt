@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.FirestoreRepository
+import hu.bme.aut.langlearn.data.DeckRepository
 import hu.bme.aut.langlearn.domain.Deck
 import hu.bme.aut.langlearn.domain.Word
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    repository: FirestoreRepository
+    repository: DeckRepository
 ) : ViewModel() {
     private val deckId: String = checkNotNull(savedStateHandle["deckId"])
 

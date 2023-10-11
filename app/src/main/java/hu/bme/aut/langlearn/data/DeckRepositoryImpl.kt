@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class FirestoreRepositoryImpl @Inject constructor(
+class DeckRepositoryImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
-) : FirestoreRepository {
+) : DeckRepository {
     override fun getAllDecks(): Flow<List<Deck>> =
         firestore
             .collection("decks")
