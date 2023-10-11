@@ -41,6 +41,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesUserRepositoryImpl(firestore: FirebaseFirestore): ProgressRepository =
-        ProgressRepositoryImpl(firestore)
+    fun providesUserRepositoryImpl(auth: FirebaseAuth, firestore: FirebaseFirestore): ProgressRepository =
+        ProgressRepositoryImpl(auth, firestore)
 }

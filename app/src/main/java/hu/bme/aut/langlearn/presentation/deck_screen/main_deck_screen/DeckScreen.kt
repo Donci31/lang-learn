@@ -64,10 +64,7 @@ fun DecksScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 items(decks) { deck ->
-                    DeckItem(
-                        deck = deck,
-                        onClick = viewModel::onDeckClick
-                    )
+                    DeckItem(deck = deck)
                 }
             }
         } ?: Box(

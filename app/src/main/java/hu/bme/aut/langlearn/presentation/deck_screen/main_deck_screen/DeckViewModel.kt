@@ -2,7 +2,6 @@ package hu.bme.aut.langlearn.presentation.deck_screen.main_deck_screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.AuthRepository
 import hu.bme.aut.langlearn.data.DeckRepository
 import hu.bme.aut.langlearn.data.ProgressRepository
 import hu.bme.aut.langlearn.domain.DeckWithPractice
@@ -14,12 +13,11 @@ import javax.inject.Inject
 @HiltViewModel
 class DeckViewModel @Inject constructor(
     deckRepository: DeckRepository,
-    progressRepository: ProgressRepository,
-    authRepository: AuthRepository,
+    progressRepository: ProgressRepository
 ) : ViewModel() {
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val combinedList = progressRepository.getAllPractices(authRepository.getCurrentUser().uid)
+    val combinedList = progressRepository.getAllPractices()
         .flatMapLatest { deckPractices ->
             deckRepository.getAllDecks().map { decks ->
                 val deckPracticesMap = deckPractices.associateBy { it.deckId }
@@ -27,16 +25,13 @@ class DeckViewModel @Inject constructor(
                 decks.map { deck ->
                     deckPracticesMap[deck.id]?.let { deckPractice ->
                         DeckWithPractice(
-                            deck.id,
-                            deck.name,
-                            deck.words,
-                            deckPractice.practices.takeLast(n = 5)
+                            id = deck.id,
+                            name = deck.name,
+                            words = deck.words,
+                            practices = deckPractice.practices.takeLast(n = 5)
                         )
                     } ?: DeckWithPractice(deck.id, deck.name, deck.words, emptyList())
                 }
             }
         }
-
-    fun onDeckClick(deck: DeckWithPractice) {
-    }
 }

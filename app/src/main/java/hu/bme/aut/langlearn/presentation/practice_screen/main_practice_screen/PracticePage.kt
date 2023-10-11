@@ -98,7 +98,7 @@ fun PracticePage(
                 }
             },
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(fraction = 0.5f)
                 .padding(16.dp)
         ) {
             Text(text = "Start Quiz")
