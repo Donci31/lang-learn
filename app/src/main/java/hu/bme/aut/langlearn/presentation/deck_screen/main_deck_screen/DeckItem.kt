@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -25,7 +26,7 @@ import hu.bme.aut.langlearn.domain.DeckWithPractice
 
 @Composable
 fun DeckItem(
-    deck: DeckWithPractice
+    deck: DeckWithPractice,
 ) {
     var isExpanded by rememberSaveable {
         mutableStateOf(false)
@@ -64,13 +65,34 @@ fun DeckItem(
         AnimatedVisibility(visible = isExpanded) {
             Column {
                 Divider(thickness = 4.dp, color = MaterialTheme.colorScheme.onSurface)
-                deck.words.forEach { word ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(4.dp),
-                        horizontalArrangement = Arrangement.SpaceAround
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(0.5f)
                     ) {
-                        Text(text = word.foreignWord)
-                        Text(text = word.englishTranslation)
+                        deck.words.map { it.foreignWord }.forEach { foreignWord ->
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(4.dp),
+                                text = foreignWord,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        deck.words.map { it.englishTranslation }.forEach { englishTranslation ->
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(4.dp),
+                                text = englishTranslation,
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 }
             }
