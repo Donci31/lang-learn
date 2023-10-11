@@ -10,7 +10,7 @@ interface AuthRepository {
 
     fun registerUser(email: String, password: String): Flow<Resource<AuthResult>>
 
-    fun getCurrentUser() : FirebaseUser?
+    fun getCurrentUser() : FirebaseUser
 
     fun logout()
 }

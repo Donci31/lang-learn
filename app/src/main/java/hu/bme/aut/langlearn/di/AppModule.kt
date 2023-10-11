@@ -13,6 +13,8 @@ import hu.bme.aut.langlearn.data.AuthRepository
 import hu.bme.aut.langlearn.data.AuthRepositoryImpl
 import hu.bme.aut.langlearn.data.DeckRepository
 import hu.bme.aut.langlearn.data.DeckRepositoryImpl
+import hu.bme.aut.langlearn.data.ProgressRepository
+import hu.bme.aut.langlearn.data.ProgressRepositoryImpl
 import javax.inject.Singleton
 
 @Module
@@ -25,15 +27,20 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun providesFirestore() = Firebase.firestore
+
+    @Provides
+    @Singleton
     fun providesAuthRepositoryImpl(firebaseAuth: FirebaseAuth): AuthRepository =
         AuthRepositoryImpl(firebaseAuth)
 
     @Provides
     @Singleton
-    fun providesFirestore() = Firebase.firestore
+    fun providesDeckRepositoryImpl(firestore: FirebaseFirestore): DeckRepository =
+        DeckRepositoryImpl(firestore)
 
     @Provides
     @Singleton
-    fun providesFirestoreRepositoryImpl(firestore: FirebaseFirestore): DeckRepository =
-        DeckRepositoryImpl(firestore)
+    fun providesUserRepositoryImpl(firestore: FirebaseFirestore): ProgressRepository =
+        ProgressRepositoryImpl(firestore)
 }

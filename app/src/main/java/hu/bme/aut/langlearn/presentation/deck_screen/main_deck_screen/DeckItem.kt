@@ -13,12 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import hu.bme.aut.langlearn.domain.Deck
+import hu.bme.aut.langlearn.domain.DeckWithPractice
 
 @Composable
 fun DeckItem(
-    deck: Deck,
-    onClick: (Deck) -> Unit
+    deck: DeckWithPractice,
+    onClick: (DeckWithPractice) -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -40,9 +40,16 @@ fun DeckItem(
                 text = deck.name,
                 textAlign = TextAlign.Center
             )
-            Text(
-                text = "Number of words: ${deck.words.count()}"
-            )
+            if (deck.practices.isEmpty()) {
+                Text(
+                    text = "No practice score yet"
+                )
+            } else {
+                Text(
+                    text = "Practice score: ${deck.practices.map { it.score }.average()}"
+                )
+            }
         }
+
     }
 }

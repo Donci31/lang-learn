@@ -31,7 +31,7 @@ fun DecksScreen(
     navController: NavController,
     viewModel: DeckViewModel = hiltViewModel(),
 ) {
-    val deckListState by viewModel.deckList.collectAsState(initial = null)
+    val deckListState by viewModel.combinedList.collectAsState(initial = null)
 
     Scaffold(
         topBar = {
