@@ -5,7 +5,6 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.firestore.ktx.toObjects
-import hu.bme.aut.langlearn.domain.Deck
 import hu.bme.aut.langlearn.domain.DeckPractice
 import hu.bme.aut.langlearn.domain.Practice
 import kotlinx.coroutines.flow.Flow
@@ -28,6 +27,28 @@ class ProgressRepositoryImpl @Inject constructor(
             .map {
                 it.toObjects()
             }
+
+    override fun createDeckPractice(deckId: String) {
+        val collectionRef = firestore
+            .collection("users")
+            .document(user)
+            .collection("deckProgress")
+
+        collectionRef
+            .document(deckId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (!document.exists()) {
+                    collectionRef
+                        .document(deckId)
+                        .set(
+                            DeckPractice(
+                                deckId = deckId
+                            )
+                        )
+                }
+            }
+    }
 
     override fun addPractice(practice: Practice, deckId: String) {
         firestore

@@ -26,6 +26,10 @@ class QuizViewModel @Inject constructor(
 
     private var correctAnswerNumber: Int = 0
 
+    init {
+        progressRepository.createDeckPractice(deckId)
+    }
+
     override fun goToNextWord() {
         userInput = ""
         super.goToNextWord()
