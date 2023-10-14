@@ -16,6 +16,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -71,8 +72,11 @@ fun PracticeScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     repeat(pageCount) { iteration ->
-                        val color =
-                            if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+                        val color = if (pagerState.currentPage == iteration) {
+                            MaterialTheme.colorScheme.surfaceTint
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        }
                         Box(
                             modifier = Modifier
                                 .padding(2.dp)

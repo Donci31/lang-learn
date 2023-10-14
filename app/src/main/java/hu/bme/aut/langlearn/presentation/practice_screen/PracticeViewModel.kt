@@ -14,17 +14,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PracticeViewModel @Inject constructor(
+open class PracticeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     repository: DeckRepository
 ) : ViewModel() {
-    private val deckId: String = checkNotNull(savedStateHandle["deckId"])
+    protected val deckId: String = checkNotNull(savedStateHandle["deckId"])
 
-    private var currentCardIndex by mutableIntStateOf(0)
+    protected var currentCardIndex by mutableIntStateOf(0)
 
     var deck: Deck? = null
 
-    private lateinit var cardList: List<Word>
+    protected lateinit var cardList: List<Word>
 
     init {
         viewModelScope.launch {
@@ -41,7 +41,7 @@ class PracticeViewModel @Inject constructor(
 
     fun isLastWord(): Boolean = currentCardIndex == cardList.size - 1
 
-    fun goToNextWord() {
+    open fun goToNextWord() {
         if (currentCardIndex < cardList.size - 1) {
             currentCardIndex++
         }

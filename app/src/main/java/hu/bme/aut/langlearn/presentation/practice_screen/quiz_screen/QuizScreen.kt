@@ -19,9 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -30,16 +27,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuizScreen(
     navController: NavController,
-    viewModel: PracticeViewModel = hiltViewModel(),
+    viewModel: QuizViewModel = hiltViewModel(),
 ) {
-    var userInput by rememberSaveable { mutableStateOf("") }
-
     viewModel.deck?.let { deck ->
         Scaffold(
             topBar = {
@@ -85,14 +79,16 @@ fun QuizScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(16.dp),
-                            value = userInput,
-                            onValueChange = { userInput = it },
+                            value = viewModel.userInput,
+                            onValueChange = { viewModel.userInput = it },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 imeAction = ImeAction.Done
                             ),
                             keyboardActions = KeyboardActions(
                                 onDone = {
+                                    viewModel.checkCorrectAnswer()
                                     if (viewModel.isLastWord()) {
+                                        viewModel.saveProgress()
                                         navController.popBackStack()
                                     } else {
                                         viewModel.goToNextWord()
