@@ -2,7 +2,7 @@ package hu.bme.aut.langlearn.presentation.practice_screen.main_practice_screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.DeckRepository
+import hu.bme.aut.langlearn.data.repositories.DeckRepository
 import javax.inject.Inject
 
 @HiltViewModel

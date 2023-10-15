@@ -2,8 +2,8 @@ package hu.bme.aut.langlearn.presentation.deck_screen.main_deck_screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.DeckRepository
-import hu.bme.aut.langlearn.data.ProgressRepository
+import hu.bme.aut.langlearn.data.repositories.DeckRepository
+import hu.bme.aut.langlearn.data.repositories.ProgressRepository
 import hu.bme.aut.langlearn.domain.DeckWithPractice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flatMapLatest

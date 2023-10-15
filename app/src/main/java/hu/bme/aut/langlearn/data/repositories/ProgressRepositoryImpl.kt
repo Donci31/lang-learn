@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.data
+package hu.bme.aut.langlearn.data.repositories
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue

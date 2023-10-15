@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.DeckRepository
-import hu.bme.aut.langlearn.data.ProgressRepository
+import hu.bme.aut.langlearn.data.repositories.DeckRepository
+import hu.bme.aut.langlearn.data.repositories.ProgressRepository
 import hu.bme.aut.langlearn.domain.Practice
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 import java.util.Date

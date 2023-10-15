@@ -15,6 +15,7 @@ import hu.bme.aut.langlearn.presentation.deck_screen.main_deck_screen.DecksScree
 import hu.bme.aut.langlearn.presentation.practice_screen.flip_card_screen.FlipCardScreen
 import hu.bme.aut.langlearn.presentation.practice_screen.main_practice_screen.PracticeScreen
 import hu.bme.aut.langlearn.presentation.practice_screen.quiz_screen.QuizScreen
+import hu.bme.aut.langlearn.presentation.practice_screen.sentence_screen.SentenceScreen
 import hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen.ProfileScreen
 import hu.bme.aut.langlearn.presentation.profile_screen.settings_screen.SettingsScreen
 
@@ -67,7 +68,7 @@ fun MainMenuScreen(
                     QuizScreen(navController)
                 }
                 composable("sentence_screen/{deckId}") {
-                    FlipCardScreen(navController)
+                    SentenceScreen(navController)
                 }
             }
             navigation(

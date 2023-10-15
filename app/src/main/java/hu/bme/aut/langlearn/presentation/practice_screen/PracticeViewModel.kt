@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.DeckRepository
+import hu.bme.aut.langlearn.data.repositories.DeckRepository
 import hu.bme.aut.langlearn.domain.Deck
 import hu.bme.aut.langlearn.domain.Word
 import kotlinx.coroutines.launch
