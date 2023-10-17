@@ -8,12 +8,13 @@ import hu.bme.aut.langlearn.domain.DeckWithPractice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class DeckViewModel @Inject constructor(
     deckRepository: DeckRepository,
-    progressRepository: ProgressRepository
+    progressRepository: ProgressRepository,
 ) : ViewModel() {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -27,11 +28,23 @@ class DeckViewModel @Inject constructor(
                         DeckWithPractice(
                             id = deck.id,
                             name = deck.name,
+                            flagEmoji = getFlagEmoji(deck.language),
                             words = deck.words,
                             practices = deckPractice.practices.takeLast(n = 5)
                         )
-                    } ?: DeckWithPractice(deck.id, deck.name, deck.words, emptyList())
+                    } ?: DeckWithPractice(
+                        id = deck.id,
+                        name = deck.name,
+                        flagEmoji = getFlagEmoji(deck.language),
+                        words = deck.words,
+                        practices = emptyList()
+                    )
                 }
             }
         }
+
+    private fun getFlagEmoji(country: String): String =
+        country.map {
+            String(Character.toChars(it.code + 127397))
+        }.joinToString("")
 }

@@ -46,12 +46,14 @@ fun DeckItem(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                modifier = Modifier
-                    .padding(16.dp),
-                text = deck.name,
-                textAlign = TextAlign.Center
-            )
+            Column {
+                Text(
+                    modifier = Modifier
+                        .padding(16.dp),
+                    text = "${deck.flagEmoji} ${deck.name}",
+                    textAlign = TextAlign.Center
+                )
+            }
             if (deck.practices.isEmpty()) {
                 Text(
                     text = "No practice score yet"

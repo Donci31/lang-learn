@@ -27,6 +27,7 @@ class AddDeckViewModel @Inject constructor(
             Deck(
                 id  = UUID.randomUUID().toString(),
                 name = deckName,
+                language = "de",
                 words = statefulWords.map { it.toWord() }
             )
         )
