@@ -2,6 +2,7 @@ package hu.bme.aut.langlearn.presentation.practice_screen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -15,23 +16,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 open class PracticeViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    repository: DeckRepository
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     protected val deckId: String = checkNotNull(savedStateHandle["deckId"])
 
     protected var currentCardIndex by mutableIntStateOf(0)
 
-    var deck: Deck? = null
+    var deck: Deck? by mutableStateOf(null)
 
     protected lateinit var cardList: List<Word>
-
-    init {
-        viewModelScope.launch {
-            deck = repository.getDeck(deckId)
-            cardList = deck?.words!!
-        }
-    }
 
     fun getProgress(): Float = (currentCardIndex + 1).toFloat() / cardList.size
 

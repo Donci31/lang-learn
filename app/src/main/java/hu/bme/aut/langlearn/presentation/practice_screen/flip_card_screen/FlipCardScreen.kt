@@ -20,7 +20,7 @@ import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 @Composable
 fun FlipCardScreen(
     navController: NavController,
-    viewModel: PracticeViewModel = hiltViewModel(),
+    viewModel: FlipCardViewModel = hiltViewModel(),
 ) {
     PracticeFrame(viewModel = viewModel) {
         Box(

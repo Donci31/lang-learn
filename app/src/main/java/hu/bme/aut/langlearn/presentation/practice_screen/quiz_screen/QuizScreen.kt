@@ -57,11 +57,10 @@ fun QuizScreen(
                     keyboardActions = KeyboardActions(
                         onDone = {
                             viewModel.checkCorrectAnswer()
+
                             if (viewModel.isLastWord()) {
                                 viewModel.saveProgress()
                                 navController.popBackStack()
-                            } else {
-                                viewModel.goToNextWord()
                             }
                         }
                     ),
