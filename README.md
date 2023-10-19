@@ -6,12 +6,12 @@
   - [X] Implement user registration and login.
   - [X] Develop deck creation and management features.
 
-- [ ]  **Week 3-6: Games**
-  - [ ] Create flashcards and quiz functionalities.
-  - [ ] Create GPT based sentence generation games.
+- [X]  **Week 3-6: Games**
+  - [X] Create flashcards and quiz functionalities.
+  - [X] Create GPT based sentence generation games.
 
 - [ ] **Week 7-9: Social and Community Features**
-  - [ ] Implement deck scoring functionality.
+  - [X] Implement deck scoring functionality.
   - [ ] Develop community features (e.g., forums, chats).
   - [ ] Thoroughly test deck sharing and privacy.
   - [ ] Begin working on notifications and reminders.
