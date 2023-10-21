@@ -37,11 +37,13 @@ class SentenceViewModel @Inject constructor(
             cardList = deck?.words!!
             progressRepository.createDeckPractice(deckId)
             quizAnswers = cardList.shuffled().take(4)
-            getSentence(quizAnswers.first().foreignWord)
+            getSentence()
         }
     }
 
-    private fun getSentence(word: String) {
+    private fun getSentence() {
+        val word = quizAnswers.shuffled().first().foreignWord
+
         viewModelScope.launch {
             curSentence = sentenceRepository.getSentence(word)
                 .replace(
@@ -54,7 +56,7 @@ class SentenceViewModel @Inject constructor(
     override fun goToNextWord() {
         curSentence = null
         quizAnswers = cardList.shuffled().take(4)
-        getSentence(quizAnswers.first().foreignWord)
+        getSentence()
         super.goToNextWord()
     }
 
