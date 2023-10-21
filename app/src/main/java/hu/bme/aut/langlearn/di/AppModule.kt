@@ -5,6 +5,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.mlkit.nl.languageid.LanguageIdentification
+import com.google.mlkit.nl.languageid.LanguageIdentificationOptions
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,11 +28,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesFirebaseAuth() = Firebase.auth
+    fun providesLanguageIdentifier() =
+        LanguageIdentification.getClient(
+            LanguageIdentificationOptions.Builder()
+                .setConfidenceThreshold(0.1f)
+                .build()
+        )
 
     @Provides
     @Singleton
-    fun providesFirestore() = Firebase.firestore
+    fun providesFirebaseAuth(): FirebaseAuth = Firebase.auth
+
+    @Provides
+    @Singleton
+    fun providesFirestore(): FirebaseFirestore = Firebase.firestore
 
     @Provides
     @Singleton
@@ -44,7 +55,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesUserRepositoryImpl(auth: FirebaseAuth, firestore: FirebaseFirestore): ProgressRepository =
+    fun providesUserRepositoryImpl(
+        auth: FirebaseAuth,
+        firestore: FirebaseFirestore,
+    ): ProgressRepository =
         ProgressRepositoryImpl(auth, firestore)
 
     @Provides
