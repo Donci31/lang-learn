@@ -48,7 +48,6 @@ class QuizViewModel @Inject constructor(
         ) {
             correctAnswerNumber++
         }
-        goToNextWord()
     }
 
     fun saveProgress() {

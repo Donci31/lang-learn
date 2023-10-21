@@ -47,6 +47,8 @@ fun SentenceScreen(
                                 if (viewModel.isLastWord()) {
                                     viewModel.saveProgress()
                                     navController.popBackStack()
+                                } else {
+                                    viewModel.goToNextWord()
                                 }
                             },
                             modifier = Modifier

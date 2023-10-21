@@ -62,7 +62,6 @@ class SentenceViewModel @Inject constructor(
         if (word == quizAnswers.first()) {
             correctAnswerNumber++
         }
-        goToNextWord()
     }
 
     fun saveProgress() {
