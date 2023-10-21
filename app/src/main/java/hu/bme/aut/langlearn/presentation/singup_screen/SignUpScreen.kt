@@ -3,9 +3,7 @@ package hu.bme.aut.langlearn.presentation.singup_screen
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
@@ -37,7 +35,7 @@ fun SignUpScreen(
     Surface {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (viewModel.signUpState.isLoading) {
@@ -48,8 +46,6 @@ fun SignUpScreen(
                     fontWeight = FontWeight.Medium,
                     style = MaterialTheme.typography.displayLarge
                 )
-
-                Spacer(modifier = Modifier.height(16.dp))
 
                 OutlinedTextField(
                     value = viewModel.email,
@@ -62,8 +58,6 @@ fun SignUpScreen(
                         )
                     }
                 )
-
-                Spacer(modifier = Modifier.height(16.dp))
 
                 OutlinedTextField(
                     value = viewModel.password,
@@ -78,8 +72,6 @@ fun SignUpScreen(
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                 )
-
-                Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = viewModel::signUpUser

@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,6 +22,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +41,8 @@ fun ProfileScreen(
     logoutOnClick: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel(),
 ) {
+    val languagesState by viewModel.languages.collectAsState(initial = null)
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -65,6 +68,7 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
@@ -78,33 +82,23 @@ fun ProfileScreen(
                     .padding(8.dp)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             Text(
                 text = "Username: ${viewModel.username}",
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             Text(text = "Learning Languages:")
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                viewModel.languages.forEach { language ->
+                languagesState?.forEach { language ->
                     Chip(text = language, modifier = Modifier.height(32.dp))
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
             Text(text = "Achievements:", fontWeight = FontWeight.Bold)
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -114,8 +108,6 @@ fun ProfileScreen(
                     Chip(text = achievement, modifier = Modifier.height(32.dp))
                 }
             }
-
-            Spacer(modifier = Modifier.height(24.dp))
 
             OutlinedButton(
                 onClick = {

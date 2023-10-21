@@ -1,6 +1,8 @@
 package hu.bme.aut.langlearn.presentation.deck_screen.main_deck_screen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -59,8 +61,11 @@ fun DecksScreen(
     ) { padding ->
         deckListState?.let { decks ->
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = padding,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 items(decks) { deck ->

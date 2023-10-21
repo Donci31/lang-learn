@@ -35,7 +35,6 @@ fun DeckItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
             .clickable { isExpanded = !isExpanded },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {

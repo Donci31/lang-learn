@@ -35,6 +35,7 @@ class SentenceViewModel @Inject constructor(
         viewModelScope.launch {
             deck = deckRepository.getDeck(deckId)
             cardList = deck?.words!!
+            progressRepository.createDeckPractice(deckId)
             quizAnswers = cardList.shuffled().take(4)
             getSentence(quizAnswers.first().foreignWord)
         }
