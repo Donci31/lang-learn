@@ -19,7 +19,7 @@ import javax.inject.Inject
 class QuizViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     deckRepository: DeckRepository,
-    private val progressRepository: ProgressRepository
+    private val progressRepository: ProgressRepository,
 ) : PracticeViewModel(
     savedStateHandle = savedStateHandle
 ) {
@@ -31,7 +31,6 @@ class QuizViewModel @Inject constructor(
         viewModelScope.launch {
             deck = deckRepository.getDeck(deckId)
             cardList = deck?.words!!
-            progressRepository.createDeckPractice(deckId)
         }
     }
 
@@ -52,11 +51,11 @@ class QuizViewModel @Inject constructor(
 
     fun saveProgress() {
         progressRepository.addPractice(
+            deckId = deckId,
             practice = Practice(
                 date = Date(),
                 score = correctAnswerNumber.toDouble() / cardList.size
-            ),
-            deckId = deckId
+            )
         )
     }
 }

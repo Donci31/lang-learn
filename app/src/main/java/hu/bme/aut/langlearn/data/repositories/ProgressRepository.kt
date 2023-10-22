@@ -7,7 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface ProgressRepository {
     fun getAllPractices(): Flow<List<DeckPractice>>
 
-    fun createDeckPractice(deckId: String)
-
-    fun addPractice(practice: Practice, deckId: String)
+    fun addPractice(deckId: String, practice: Practice)
 }

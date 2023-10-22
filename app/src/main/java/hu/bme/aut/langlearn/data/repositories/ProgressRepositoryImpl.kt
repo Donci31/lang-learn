@@ -29,34 +29,21 @@ class ProgressRepositoryImpl @Inject constructor(
                 it.toObjects()
             }
 
-    override fun createDeckPractice(deckId: String) {
-        val collectionRef = firestore
+    override fun addPractice(deckId: String, practice: Practice) {
+        val documentRef = firestore
             .collection("users")
             .document(user)
             .collection("deckProgress")
-
-        collectionRef
             .document(deckId)
+
+        documentRef
             .get()
             .addOnSuccessListener { document ->
-                if (!document.exists()) {
-                    collectionRef
-                        .document(deckId)
-                        .set(
-                            DeckPractice(
-                                deckId = deckId
-                            )
-                        )
+                if (document.exists()) {
+                    documentRef.update("practices", FieldValue.arrayUnion(practice))
+                } else {
+                    documentRef.set(DeckPractice(deckId = deckId, practices = listOf(practice)))
                 }
             }
-    }
-
-    override fun addPractice(practice: Practice, deckId: String) {
-        firestore
-            .collection("users")
-            .document(user)
-            .collection("deckProgress")
-            .document(deckId)
-            .update("practices", FieldValue.arrayUnion(practice))
     }
 }

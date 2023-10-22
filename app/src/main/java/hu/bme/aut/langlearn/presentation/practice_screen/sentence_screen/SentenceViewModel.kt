@@ -29,20 +29,22 @@ class SentenceViewModel @Inject constructor(
 
     lateinit var quizAnswers: List<Word>
 
+    private var correctAnswerIndex: Int = 0
+
     private var correctAnswerNumber: Int = 0
 
     init {
         viewModelScope.launch {
             deck = deckRepository.getDeck(deckId)
             cardList = deck?.words!!
-            progressRepository.createDeckPractice(deckId)
             quizAnswers = cardList.shuffled().take(4)
             getSentence()
         }
     }
 
     private fun getSentence() {
-        val word = quizAnswers.shuffled().first().foreignWord
+        correctAnswerIndex = java.util.Random().nextInt(4)
+        val word = quizAnswers[correctAnswerIndex].foreignWord
 
         viewModelScope.launch {
             curSentence = sentenceRepository.getSentence(word)
@@ -61,18 +63,18 @@ class SentenceViewModel @Inject constructor(
     }
 
     fun checkCorrectAnswer(word: Word) {
-        if (word == quizAnswers.first()) {
+        if (word == quizAnswers[correctAnswerIndex]) {
             correctAnswerNumber++
         }
     }
 
     fun saveProgress() {
         progressRepository.addPractice(
+            deckId = deckId,
             practice = Practice(
                 date = Date(),
                 score = correctAnswerNumber.toDouble() / cardList.size
-            ),
-            deckId = deckId
+            )
         )
     }
 }
