@@ -17,7 +17,6 @@ import hu.bme.aut.langlearn.presentation.practice_screen.main_practice_screen.Pr
 import hu.bme.aut.langlearn.presentation.practice_screen.quiz_screen.QuizScreen
 import hu.bme.aut.langlearn.presentation.practice_screen.sentence_screen.SentenceScreen
 import hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen.ProfileScreen
-import hu.bme.aut.langlearn.presentation.profile_screen.settings_screen.SettingsScreen
 
 @Composable
 fun MainMenuScreen(
@@ -77,12 +76,8 @@ fun MainMenuScreen(
             ) {
                 composable(NavItem.Profile.nestedRoute) {
                     ProfileScreen(
-                        navController = navController,
                         logoutOnClick = logoutOnClick
                     )
-                }
-                composable("settings_screen") {
-                    SettingsScreen()
                 }
             }
         }

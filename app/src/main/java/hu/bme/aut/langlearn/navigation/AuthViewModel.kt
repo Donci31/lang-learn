@@ -9,5 +9,5 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val repository: AuthRepository
 ) : ViewModel() {
-    fun isLoggedIn(): Boolean = repository.getCurrentUser() != null
+    fun isLoggedIn(): Boolean = repository.currentUser != null
 }

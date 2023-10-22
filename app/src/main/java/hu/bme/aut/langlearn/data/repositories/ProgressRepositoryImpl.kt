@@ -12,11 +12,12 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ProgressRepositoryImpl @Inject constructor(
-    auth: FirebaseAuth,
+    private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
 ) : ProgressRepository {
 
-    private val user = auth.uid!!
+    private val user: String
+        get() = auth.uid!!
 
     override fun getAllPractices(): Flow<List<DeckPractice>> =
         firestore

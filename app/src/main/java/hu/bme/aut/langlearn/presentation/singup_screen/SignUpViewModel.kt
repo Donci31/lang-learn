@@ -17,11 +17,18 @@ class SignUpViewModel @Inject constructor(
     private val repository: AuthRepository,
 ) : ViewModel() {
 
+    var userName by mutableStateOf("")
+        private set
+
     var email by mutableStateOf("")
         private set
 
     var password by mutableStateOf("")
         private set
+
+    fun updateUserName(input: String) {
+        userName = input
+    }
 
     fun updateEmail(input: String) {
         email = input
@@ -35,7 +42,7 @@ class SignUpViewModel @Inject constructor(
 
     fun signUpUser() {
         viewModelScope.launch {
-            repository.registerUser(email, password).collectLatest { result ->
+            repository.registerUser(userName, email, password).collectLatest { result ->
                 signUpState = when (result) {
                     is Resource.Success -> {
                          SignUpState(isSuccess = "Success")

@@ -48,6 +48,18 @@ fun SignUpScreen(
                 )
 
                 OutlinedTextField(
+                    value = viewModel.userName,
+                    onValueChange = viewModel::updateUserName,
+                    label = { Text("Username") },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Person,
+                            contentDescription = "Username icon"
+                        )
+                    }
+                )
+
+                OutlinedTextField(
                     value = viewModel.email,
                     onValueChange = viewModel::updateEmail,
                     label = { Text("Email") },

@@ -18,7 +18,7 @@ class ProfileViewModel @Inject constructor(
     private val deckRepository: DeckRepository,
 ) : ViewModel() {
 
-    var username = authRepository.getCurrentUser()?.displayName
+    var username = authRepository.currentUser?.displayName
 
     @OptIn(ExperimentalCoroutinesApi::class)
     var languages = progressRepository.getAllPractices()
@@ -28,7 +28,7 @@ class ProfileViewModel @Inject constructor(
 
                 deckPractices.mapNotNull { deckPractice ->
                     decksMap[deckPractice.deckId]?.languageCode
-                }.toSet()
+                }.distinct()
             }
         }
 

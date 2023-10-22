@@ -6,11 +6,12 @@ import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
+
+    val currentUser: FirebaseUser?
+
     fun loginUser(email: String, password: String): Flow<Resource<AuthResult>>
 
-    fun registerUser(email: String, password: String): Flow<Resource<AuthResult>>
-
-    fun getCurrentUser() : FirebaseUser?
+    fun registerUser(userName: String, email: String, password: String): Flow<Resource<AuthResult>>
 
     fun logout()
 }
