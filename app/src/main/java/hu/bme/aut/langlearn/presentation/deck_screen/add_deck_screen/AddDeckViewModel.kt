@@ -38,7 +38,11 @@ class AddDeckViewModel @Inject constructor(
     }
 
     private fun getDeckLanguage(callback: (String) -> Unit) {
-        languageIdentifier.identifyLanguage(statefulWords.first().foreignWord.value)
+        languageIdentifier.identifyLanguage(
+            statefulWords.joinToString(", ") { word ->
+                word.foreignWord.value
+            }
+        )
             .addOnSuccessListener { languageCode ->
                 callback(languageCode)
             }

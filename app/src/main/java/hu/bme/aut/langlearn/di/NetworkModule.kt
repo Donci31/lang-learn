@@ -17,12 +17,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOpenAIAPI(): OpenAIAPI {
-        return Retrofit.Builder()
+    fun provideOpenAIAPI(): OpenAIAPI =
+        Retrofit.Builder()
             .baseUrl("https://api.openai.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient.Builder().build())
             .build()
             .create()
-    }
 }
