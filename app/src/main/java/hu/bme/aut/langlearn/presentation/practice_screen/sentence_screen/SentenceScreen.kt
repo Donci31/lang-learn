@@ -48,6 +48,7 @@ fun SentenceScreen(
                                     viewModel.saveProgress()
                                     navController.popBackStack()
                                 } else {
+                                    viewModel.resetQuiz()
                                     viewModel.goToNextWord()
                                 }
                             },

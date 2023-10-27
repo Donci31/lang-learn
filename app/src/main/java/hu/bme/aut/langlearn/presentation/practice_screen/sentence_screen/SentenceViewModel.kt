@@ -37,8 +37,7 @@ class SentenceViewModel @Inject constructor(
         viewModelScope.launch {
             deck = deckRepository.getDeck(deckId)
             cardList = deck?.words!!
-            quizAnswers = cardList.shuffled().take(4)
-            getSentence()
+            resetQuiz()
         }
     }
 
@@ -55,11 +54,10 @@ class SentenceViewModel @Inject constructor(
         }
     }
 
-    override fun goToNextWord() {
+    fun resetQuiz() {
         curSentence = null
         quizAnswers = cardList.shuffled().take(4)
         getSentence()
-        super.goToNextWord()
     }
 
     fun checkCorrectAnswer(word: Word) {

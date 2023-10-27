@@ -34,11 +34,6 @@ class QuizViewModel @Inject constructor(
         }
     }
 
-    override fun goToNextWord() {
-        userInput = ""
-        super.goToNextWord()
-    }
-
     fun checkCorrectAnswer() {
         if (
             userInput.lowercase(Locale.getDefault())

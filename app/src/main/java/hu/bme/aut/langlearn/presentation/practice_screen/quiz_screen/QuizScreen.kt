@@ -62,6 +62,7 @@ fun QuizScreen(
                                 viewModel.saveProgress()
                                 navController.popBackStack()
                             } else {
+                                viewModel.userInput = ""
                                 viewModel.goToNextWord()
                             }
                         }
