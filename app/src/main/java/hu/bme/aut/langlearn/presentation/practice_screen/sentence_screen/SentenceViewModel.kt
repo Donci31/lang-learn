@@ -14,6 +14,7 @@ import hu.bme.aut.langlearn.domain.Word
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +30,8 @@ class SentenceViewModel @Inject constructor(
 
     lateinit var quizAnswers: List<Word>
 
+    private lateinit var languageCode: String
+
     private var correctAnswerIndex: Int = 0
 
     private var correctAnswerNumber: Int = 0
@@ -37,6 +40,7 @@ class SentenceViewModel @Inject constructor(
         viewModelScope.launch {
             deck = deckRepository.getDeck(deckId)
             cardList = deck?.words!!
+            languageCode = Locale(deck?.languageCode!!).displayLanguage
             resetQuiz()
         }
     }
@@ -46,7 +50,7 @@ class SentenceViewModel @Inject constructor(
         val word = quizAnswers[correctAnswerIndex].foreignWord
 
         viewModelScope.launch {
-            curSentence = sentenceRepository.getSentence(word)
+            curSentence = sentenceRepository.getSentence(word, languageCode)
                 .replace(
                     Regex("\\b${Regex.escape(word)}\\b", RegexOption.IGNORE_CASE),
                     "_".repeat(5)

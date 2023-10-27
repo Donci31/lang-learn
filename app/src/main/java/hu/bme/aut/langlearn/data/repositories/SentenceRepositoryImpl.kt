@@ -10,14 +10,20 @@ class SentenceRepositoryImpl @Inject constructor(
     private val openAIAPI: OpenAIAPI
 ): SentenceRepository {
 
-    override suspend fun getSentence(word: String): String {
+    override suspend fun getSentence(word: String, language: String): String {
         val response = openAIAPI.getChatCompletions(
             authorization = "Bearer ${BuildConfig.OPENAI_API_KEY}",
             requestBody = ChatRequestBody(
                 model = "gpt-3.5-turbo",
                 messages = listOf(
-                    Message(role = "system", content = "Make a sentence with the word."),
-                    Message(role = "user", content = word)
+                    Message(
+                        role = "system",
+                        content = "Make a sentence with the user given word in $language."
+                    ),
+                    Message(
+                        role = "user",
+                        content = word
+                    )
                 ),
                 temperature = 1.0,
                 max_tokens = 30,
