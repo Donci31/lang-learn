@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Button
@@ -65,7 +66,7 @@ fun SignUpScreen(
                     label = { Text("Email") },
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Outlined.Person,
+                            imageVector = Icons.Outlined.Email,
                             contentDescription = "Email icon"
                         )
                     }
