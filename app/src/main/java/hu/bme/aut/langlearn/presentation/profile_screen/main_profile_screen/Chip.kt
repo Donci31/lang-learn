@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun Chip(
-    text: String,
     modifier: Modifier = Modifier,
+    text: String,
 ) {
     Surface(
         modifier = modifier,
@@ -22,7 +22,7 @@ fun Chip(
     ) {
         Text(
             text = text,
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+            modifier = Modifier.padding(8.dp),
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold
         )

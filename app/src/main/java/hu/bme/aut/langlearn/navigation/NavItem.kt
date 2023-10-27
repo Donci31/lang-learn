@@ -2,11 +2,11 @@ package hu.bme.aut.langlearn.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.ThumbUp
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.ui.graphics.vector.ImageVector
 
 
@@ -21,16 +21,16 @@ sealed class NavItem(
         route = "deck",
         nestedRoute = "main_deck_screen",
         label = "Deck",
-        selectedIcon = Icons.Filled.Home,
-        unSelectedIcon = Icons.Outlined.Home
+        selectedIcon = Icons.Filled.Add,
+        unSelectedIcon = Icons.Outlined.Add
     )
 
     data object Practice : NavItem(
         route = "practice",
         nestedRoute = "main_practice_screen",
         label = "Practice",
-        selectedIcon = Icons.Filled.ThumbUp,
-        unSelectedIcon = Icons.Outlined.ThumbUp
+        selectedIcon = Icons.Filled.PlayArrow,
+        unSelectedIcon = Icons.Outlined.PlayArrow
     )
 
     data object Profile : NavItem(

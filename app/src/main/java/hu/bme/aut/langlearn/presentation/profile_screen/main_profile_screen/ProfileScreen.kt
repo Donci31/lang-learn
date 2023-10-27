@@ -3,6 +3,8 @@ package hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hu.bme.aut.langlearn.R
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun ProfileScreen(
     logoutOnClick: () -> Unit,
@@ -68,12 +70,14 @@ fun ProfileScreen(
 
             Text(text = "Learning Languages:")
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 languagesState.forEach { language ->
-                    Chip(text = language, modifier = Modifier.height(32.dp))
+                    Chip(
+                        modifier = Modifier.padding(top = 12.dp),
+                        text = language
+                    )
                 }
             }
 

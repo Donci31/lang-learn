@@ -9,6 +9,7 @@ import hu.bme.aut.langlearn.data.repositories.ProgressRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +28,9 @@ class ProfileViewModel @Inject constructor(
                 val decksMap = decks.associateBy { it.id }
 
                 deckPractices.mapNotNull { deckPractice ->
-                    decksMap[deckPractice.deckId]?.languageCode
+                    decksMap[deckPractice.deckId]?.languageCode?.let { languageCode ->
+                        Locale(languageCode).displayLanguage
+                    }
                 }.distinct()
             }
         }
