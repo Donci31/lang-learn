@@ -41,36 +41,43 @@ fun DeckItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(24.dp),
+                .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
-                Text(
-                    modifier = Modifier
-                        .padding(16.dp),
-                    text = "${deck.flagEmoji} ${deck.name}",
-                    textAlign = TextAlign.Center
-                )
-            }
+            Text(
+                modifier = Modifier
+                    .padding(16.dp),
+                text = "${deck.flagEmoji} ${deck.name}",
+                textAlign = TextAlign.Center
+            )
             if (deck.practices.isEmpty()) {
                 Text(
                     text = "No practice score yet"
                 )
             } else {
-                Column {
-                    Text(
-                        text = "Practice score: ${
-                            String.format("%.2f", deck.practices.map { it.score }.average())
-                        }"
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    ScoreBar(
+                        rating = deck.practices.map { it.score }.average()
                     )
                     Text(
-                        text = "Last practice: ${
-                            (Date().time - deck.practices.last().date.time) / (60 * 60 * 1000)
-                        }h"
+                        text = "Practice score"
                     )
                 }
             }
+        }
+        if (deck.practices.isNotEmpty()) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 4.dp),
+                text = "Last practice: ${
+                    (Date().time - deck.practices.last().date.time) / (60 * 60 * 1000)
+                }h ago",
+                textAlign = TextAlign.Center
+            )
         }
         AnimatedVisibility(visible = isExpanded) {
             Column {

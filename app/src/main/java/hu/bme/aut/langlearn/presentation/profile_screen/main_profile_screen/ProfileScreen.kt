@@ -5,14 +5,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,13 +22,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import hu.bme.aut.langlearn.R
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalCoilApi::class)
 @Composable
 fun ProfileScreen(
     logoutOnClick: () -> Unit,
@@ -54,8 +53,10 @@ fun ProfileScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = "User Avatar",
+                painter = rememberImagePainter(
+                    data = "https://www.shareicon.net${viewModel.profilePicture?.path}"
+                ),
+                contentDescription = null,
                 modifier = Modifier
                     .size(120.dp)
                     .fillMaxWidth()
@@ -65,30 +66,23 @@ fun ProfileScreen(
 
             Text(
                 text = "Username: ${viewModel.username}",
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineLarge
             )
 
-            Text(text = "Learning Languages:")
+            Text(
+                text = "Learning Languages:",
+                style = MaterialTheme.typography.headlineSmall
+            )
 
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 languagesState.forEach { language ->
                     Chip(
-                        modifier = Modifier.padding(top = 12.dp),
+                        modifier = Modifier.padding(top = 6.dp, bottom = 6.dp),
                         text = language
                     )
-                }
-            }
-
-            Text(text = "Achievements:", fontWeight = FontWeight.Bold)
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                viewModel.achievements.forEach { achievement ->
-                    Chip(text = achievement, modifier = Modifier.height(32.dp))
                 }
             }
 

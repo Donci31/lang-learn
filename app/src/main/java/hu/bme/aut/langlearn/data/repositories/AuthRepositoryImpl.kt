@@ -1,9 +1,11 @@
 package hu.bme.aut.langlearn.data.repositories
 
+import android.net.Uri
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import hu.bme.aut.langlearn.presentation.singup_screen.Gender
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -37,6 +39,7 @@ class AuthRepositoryImpl @Inject constructor(
         userName: String,
         email: String,
         password: String,
+        gender: Gender
     ): Flow<Resource<AuthResult>> = flow {
         emit(Resource.Loading())
 
@@ -45,6 +48,11 @@ class AuthRepositoryImpl @Inject constructor(
         result.user!!.updateProfile(
             userProfileChangeRequest {
                 displayName = userName
+                photoUri = if (gender == Gender.MALE) {
+                    Uri.parse("https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png")
+                } else {
+                    Uri.parse("https://www.shareicon.net/data/512x512/2016/05/24/770116_people_512x512.png")
+                }
             }
         ).await()
 

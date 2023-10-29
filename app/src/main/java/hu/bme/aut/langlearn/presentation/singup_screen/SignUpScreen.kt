@@ -3,6 +3,7 @@ package hu.bme.aut.langlearn.presentation.singup_screen
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -14,6 +15,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -85,6 +87,23 @@ fun SignUpScreen(
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                 )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    RadioButton(
+                        selected = viewModel.gender == Gender.MALE,
+                        onClick = { viewModel.gender = Gender.MALE }
+                    )
+                    Text(text = "Male")
+
+                    RadioButton(
+                        selected = viewModel.gender == Gender.FEMALE,
+                        onClick = { viewModel.gender = Gender.FEMALE }
+                    )
+                    Text(text = "Female")
+                }
 
                 Button(
                     onClick = viewModel::signUpUser

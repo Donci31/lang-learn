@@ -1,6 +1,5 @@
 package hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.langlearn.data.repositories.AuthRepository
@@ -19,7 +18,9 @@ class ProfileViewModel @Inject constructor(
     private val deckRepository: DeckRepository,
 ) : ViewModel() {
 
-    var username = authRepository.currentUser?.displayName
+    val username = authRepository.currentUser?.displayName
+
+    val profilePicture = authRepository.currentUser?.photoUrl
 
     @OptIn(ExperimentalCoroutinesApi::class)
     var languages = progressRepository.getAllPractices()
@@ -34,8 +35,6 @@ class ProfileViewModel @Inject constructor(
                 }.distinct()
             }
         }
-
-    var achievements = mutableStateListOf<String>()
 
     fun logout() {
         authRepository.logout()

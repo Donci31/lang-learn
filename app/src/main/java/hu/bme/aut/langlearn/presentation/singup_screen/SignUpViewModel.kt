@@ -26,6 +26,8 @@ class SignUpViewModel @Inject constructor(
     var password by mutableStateOf("")
         private set
 
+    var gender by mutableStateOf(Gender.MALE)
+
     fun updateUserName(input: String) {
         userName = input
     }
@@ -42,21 +44,22 @@ class SignUpViewModel @Inject constructor(
 
     fun signUpUser() {
         viewModelScope.launch {
-            repository.registerUser(userName, email, password).collectLatest { result ->
-                signUpState = when (result) {
-                    is Resource.Success -> {
-                         SignUpState(isSuccess = "Success")
-                    }
+            repository.registerUser(userName, email, password, gender)
+                .collectLatest { result ->
+                    signUpState = when (result) {
+                        is Resource.Success -> {
+                            SignUpState(isSuccess = "Success")
+                        }
 
-                    is Resource.Loading -> {
-                        SignUpState(isLoading = true)
-                    }
+                        is Resource.Loading -> {
+                            SignUpState(isLoading = true)
+                        }
 
-                    is Resource.Error -> {
-                        SignUpState(isError = result.message)
+                        is Resource.Error -> {
+                            SignUpState(isError = result.message)
+                        }
                     }
                 }
-            }
         }
     }
 
