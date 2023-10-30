@@ -45,5 +45,10 @@ class ProgressRepositoryImpl @Inject constructor(
                     documentRef.set(DeckPractice(deckId = deckId, practices = listOf(practice)))
                 }
             }
+
+        firestore
+            .collection("users")
+            .document(user)
+            .update("practice_day", FieldValue.arrayUnion(practice.date))
     }
 }

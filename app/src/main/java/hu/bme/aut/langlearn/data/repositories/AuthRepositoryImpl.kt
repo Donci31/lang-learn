@@ -5,6 +5,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 import hu.bme.aut.langlearn.presentation.singup_screen.Gender
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
+    private val firestore: FirebaseFirestore,
 ) : AuthRepository {
 
     override val currentUser: FirebaseUser?
@@ -39,13 +41,15 @@ class AuthRepositoryImpl @Inject constructor(
         userName: String,
         email: String,
         password: String,
-        gender: Gender
+        gender: Gender,
     ): Flow<Resource<AuthResult>> = flow {
         emit(Resource.Loading())
 
         val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
 
-        result.user!!.updateProfile(
+        val user = result.user!!
+
+        user.updateProfile(
             userProfileChangeRequest {
                 displayName = userName
                 photoUri = if (gender == Gender.MALE) {
@@ -55,6 +59,11 @@ class AuthRepositoryImpl @Inject constructor(
                 }
             }
         ).await()
+
+        firestore
+            .collection("users")
+            .document(user.uid)
+            .set(HashMap<String, Any>())
 
         emit(Resource.Success(result))
     }.catch {
