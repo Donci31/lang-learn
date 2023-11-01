@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.data.repositories
+package hu.bme.aut.langlearn.domain.repositories
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser

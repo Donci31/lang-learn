@@ -1,7 +1,7 @@
-package hu.bme.aut.langlearn.domain.login_screen
+package hu.bme.aut.langlearn.domain.use_cases.login_screen
 
 import com.google.firebase.auth.AuthResult
-import hu.bme.aut.langlearn.data.repositories.AuthRepository
+import hu.bme.aut.langlearn.domain.repositories.AuthRepository
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

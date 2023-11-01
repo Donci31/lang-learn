@@ -2,7 +2,7 @@ package hu.bme.aut.langlearn.navigation
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.domain.navigation.IsUserLoggedInUseCase
+import hu.bme.aut.langlearn.domain.use_cases.navigation.IsUserLoggedInUseCase
 import javax.inject.Inject
 
 @HiltViewModel

@@ -7,6 +7,7 @@ import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.firestore.ktx.toObjects
 import hu.bme.aut.langlearn.domain.entities.DeckPractice
 import hu.bme.aut.langlearn.domain.entities.Practice
+import hu.bme.aut.langlearn.domain.repositories.ProgressRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

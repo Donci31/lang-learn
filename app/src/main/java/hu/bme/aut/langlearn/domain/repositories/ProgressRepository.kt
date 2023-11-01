@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.data.repositories
+package hu.bme.aut.langlearn.domain.repositories
 
 import hu.bme.aut.langlearn.domain.entities.DeckPractice
 import hu.bme.aut.langlearn.domain.entities.Practice

@@ -4,6 +4,7 @@ import hu.bme.aut.langlearn.BuildConfig
 import hu.bme.aut.langlearn.data.remote.ChatRequestBody
 import hu.bme.aut.langlearn.data.remote.Message
 import hu.bme.aut.langlearn.data.remote.OpenAIAPI
+import hu.bme.aut.langlearn.domain.repositories.SentenceRepository
 import javax.inject.Inject
 
 class SentenceRepositoryImpl @Inject constructor(

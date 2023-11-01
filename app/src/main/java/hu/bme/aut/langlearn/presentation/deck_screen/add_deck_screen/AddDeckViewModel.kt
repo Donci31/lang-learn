@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.domain.deck_screen.AddDeckUseCase
+import hu.bme.aut.langlearn.domain.use_cases.deck_screen.AddDeckUseCase
 import javax.inject.Inject
 
 @HiltViewModel

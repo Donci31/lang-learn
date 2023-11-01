@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.domain.practice_screen.GetDeckUseCase
-import hu.bme.aut.langlearn.domain.practice_screen.SaveProgressUseCase
+import hu.bme.aut.langlearn.domain.use_cases.practice_screen.GetDeckUseCase
+import hu.bme.aut.langlearn.domain.use_cases.practice_screen.SaveProgressUseCase
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 import kotlinx.coroutines.launch
 import java.util.Locale

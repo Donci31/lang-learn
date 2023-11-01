@@ -1,6 +1,6 @@
-package hu.bme.aut.langlearn.domain.practice_screen
+package hu.bme.aut.langlearn.domain.use_cases.practice_screen
 
-import hu.bme.aut.langlearn.data.repositories.DeckRepository
+import hu.bme.aut.langlearn.domain.repositories.DeckRepository
 import javax.inject.Inject
 
 class GetDeckUseCase @Inject constructor(

@@ -2,10 +2,10 @@ package hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.domain.profile_screen.GetPracticedLanguagesUseCase
-import hu.bme.aut.langlearn.domain.profile_screen.GetProfilePictureUseCase
-import hu.bme.aut.langlearn.domain.profile_screen.GetUsernameUseCase
-import hu.bme.aut.langlearn.domain.profile_screen.LogoutUseCase
+import hu.bme.aut.langlearn.domain.use_cases.profile_screen.GetPracticedLanguagesUseCase
+import hu.bme.aut.langlearn.domain.use_cases.profile_screen.GetProfilePictureUseCase
+import hu.bme.aut.langlearn.domain.use_cases.profile_screen.GetUsernameUseCase
+import hu.bme.aut.langlearn.domain.use_cases.profile_screen.LogoutUseCase
 import javax.inject.Inject
 
 @HiltViewModel

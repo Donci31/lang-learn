@@ -1,6 +1,6 @@
-package hu.bme.aut.langlearn.domain.navigation
+package hu.bme.aut.langlearn.domain.use_cases.navigation
 
-import hu.bme.aut.langlearn.data.repositories.AuthRepository
+import hu.bme.aut.langlearn.domain.repositories.AuthRepository
 import javax.inject.Inject
 
 class IsUserLoggedInUseCase @Inject constructor(

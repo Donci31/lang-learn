@@ -1,7 +1,7 @@
-package hu.bme.aut.langlearn.domain.deck_screen
+package hu.bme.aut.langlearn.domain.use_cases.deck_screen
 
-import hu.bme.aut.langlearn.data.repositories.DeckRepository
-import hu.bme.aut.langlearn.data.repositories.ProgressRepository
+import hu.bme.aut.langlearn.domain.repositories.DeckRepository
+import hu.bme.aut.langlearn.domain.repositories.ProgressRepository
 import hu.bme.aut.langlearn.domain.entities.DeckWithPractice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

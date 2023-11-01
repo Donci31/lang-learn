@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.data.repositories
+package hu.bme.aut.langlearn.domain.repositories
 
 interface SentenceRepository {
 

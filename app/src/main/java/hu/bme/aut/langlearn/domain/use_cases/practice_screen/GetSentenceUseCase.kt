@@ -1,6 +1,6 @@
-package hu.bme.aut.langlearn.domain.practice_screen
+package hu.bme.aut.langlearn.domain.use_cases.practice_screen
 
-import hu.bme.aut.langlearn.data.repositories.SentenceRepository
+import hu.bme.aut.langlearn.domain.repositories.SentenceRepository
 import javax.inject.Inject
 
 class GetSentenceUseCase @Inject constructor(

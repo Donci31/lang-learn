@@ -12,13 +12,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import hu.bme.aut.langlearn.data.remote.OpenAIAPI
-import hu.bme.aut.langlearn.data.repositories.AuthRepository
+import hu.bme.aut.langlearn.domain.repositories.AuthRepository
 import hu.bme.aut.langlearn.data.repositories.AuthRepositoryImpl
-import hu.bme.aut.langlearn.data.repositories.DeckRepository
+import hu.bme.aut.langlearn.domain.repositories.DeckRepository
 import hu.bme.aut.langlearn.data.repositories.DeckRepositoryImpl
-import hu.bme.aut.langlearn.data.repositories.ProgressRepository
+import hu.bme.aut.langlearn.domain.repositories.ProgressRepository
 import hu.bme.aut.langlearn.data.repositories.ProgressRepositoryImpl
-import hu.bme.aut.langlearn.data.repositories.SentenceRepository
+import hu.bme.aut.langlearn.domain.repositories.SentenceRepository
 import hu.bme.aut.langlearn.data.repositories.SentenceRepositoryImpl
 import javax.inject.Singleton
 

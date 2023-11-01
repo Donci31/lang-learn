@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.domain.login_screen.LoginUserUseCase
+import hu.bme.aut.langlearn.domain.use_cases.login_screen.LoginUserUseCase
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
