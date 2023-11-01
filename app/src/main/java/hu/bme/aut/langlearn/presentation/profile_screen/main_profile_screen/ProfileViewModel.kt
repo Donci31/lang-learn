@@ -2,41 +2,27 @@ package hu.bme.aut.langlearn.presentation.profile_screen.main_profile_screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.repositories.AuthRepository
-import hu.bme.aut.langlearn.data.repositories.DeckRepository
-import hu.bme.aut.langlearn.data.repositories.ProgressRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
-import java.util.Locale
+import hu.bme.aut.langlearn.domain.profile_screen.GetPracticedLanguagesUseCase
+import hu.bme.aut.langlearn.domain.profile_screen.GetProfilePictureUseCase
+import hu.bme.aut.langlearn.domain.profile_screen.GetUsernameUseCase
+import hu.bme.aut.langlearn.domain.profile_screen.LogoutUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
-    progressRepository: ProgressRepository,
-    private val deckRepository: DeckRepository,
+    getUsernameUseCase: GetUsernameUseCase,
+    getProfilePictureUseCase: GetProfilePictureUseCase,
+    getPracticedLanguagesUseCase: GetPracticedLanguagesUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
-    val username = authRepository.currentUser?.displayName
+    val username = getUsernameUseCase()
 
-    val profilePicture = authRepository.currentUser?.photoUrl
+    val profilePicture = getProfilePictureUseCase()
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    var languages = progressRepository.getAllPractices()
-        .flatMapLatest { deckPractices ->
-            deckRepository.getAllDecks().map { decks ->
-                val decksMap = decks.associateBy { it.id }
-
-                deckPractices.mapNotNull { deckPractice ->
-                    decksMap[deckPractice.deckId]?.languageCode?.let { languageCode ->
-                        Locale(languageCode).displayLanguage
-                    }
-                }.distinct()
-            }
-        }
+    var languages = getPracticedLanguagesUseCase()
 
     fun logout() {
-        authRepository.logout()
+        logoutUseCase()
     }
 }

@@ -6,12 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.repositories.DeckRepository
-import hu.bme.aut.langlearn.domain.Deck
-import hu.bme.aut.langlearn.domain.Word
-import kotlinx.coroutines.launch
+import hu.bme.aut.langlearn.domain.entities.Deck
+import hu.bme.aut.langlearn.domain.entities.Word
 import javax.inject.Inject
 
 @HiltViewModel

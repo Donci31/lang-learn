@@ -6,20 +6,18 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.repositories.DeckRepository
-import hu.bme.aut.langlearn.data.repositories.ProgressRepository
-import hu.bme.aut.langlearn.domain.Practice
+import hu.bme.aut.langlearn.domain.practice_screen.GetDeckUseCase
+import hu.bme.aut.langlearn.domain.practice_screen.SaveProgressUseCase
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 import kotlinx.coroutines.launch
-import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class QuizViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    deckRepository: DeckRepository,
-    private val progressRepository: ProgressRepository,
+    getDeckUseCase: GetDeckUseCase,
+    private val saveProgressUseCase: SaveProgressUseCase,
 ) : PracticeViewModel(
     savedStateHandle = savedStateHandle
 ) {
@@ -29,7 +27,7 @@ class QuizViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            deck = deckRepository.getDeck(deckId)
+            deck = getDeckUseCase(deckId)
             cardList = deck?.words!!
         }
     }
@@ -45,12 +43,10 @@ class QuizViewModel @Inject constructor(
     }
 
     fun saveProgress() {
-        progressRepository.addPractice(
+        saveProgressUseCase(
             deckId = deckId,
-            practice = Practice(
-                date = Date(),
-                score = correctAnswerNumber.toDouble() / cardList.size
-            )
+            correctAnswerNumber = correctAnswerNumber,
+            cardListSize = cardList.size
         )
     }
 }

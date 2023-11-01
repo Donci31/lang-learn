@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import hu.bme.aut.langlearn.domain.DeckWithPractice
+import hu.bme.aut.langlearn.domain.entities.DeckWithPractice
 import java.util.Date
 
 @Composable

@@ -54,7 +54,7 @@ fun ProfileScreen(
         ) {
             Image(
                 painter = rememberImagePainter(
-                    data = "https://www.shareicon.net${viewModel.profilePicture?.path}"
+                    data = "https://www.shareicon.net${viewModel.profilePicture.path}"
                 ),
                 contentDescription = null,
                 modifier = Modifier

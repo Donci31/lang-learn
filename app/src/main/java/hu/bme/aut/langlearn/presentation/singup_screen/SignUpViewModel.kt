@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.repositories.AuthRepository
+import hu.bme.aut.langlearn.domain.signup_screen.SignUpUserUseCase
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val repository: AuthRepository,
+    private val signUpUserUseCase: SignUpUserUseCase
 ) : ViewModel() {
 
     var userName by mutableStateOf("")
@@ -44,7 +44,7 @@ class SignUpViewModel @Inject constructor(
 
     fun signUpUser() {
         viewModelScope.launch {
-            repository.registerUser(userName, email, password, gender)
+            signUpUserUseCase(userName, email, password, gender)
                 .collectLatest { result ->
                     signUpState = when (result) {
                         is Resource.Success -> {

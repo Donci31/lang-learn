@@ -2,7 +2,7 @@ package hu.bme.aut.langlearn.presentation.deck_screen.add_deck_screen
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import hu.bme.aut.langlearn.domain.Word
+import hu.bme.aut.langlearn.domain.entities.Word
 import java.util.UUID
 
 data class StatefulWord(

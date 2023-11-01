@@ -6,23 +6,21 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.langlearn.data.repositories.DeckRepository
-import hu.bme.aut.langlearn.data.repositories.ProgressRepository
-import hu.bme.aut.langlearn.data.repositories.SentenceRepository
-import hu.bme.aut.langlearn.domain.Practice
-import hu.bme.aut.langlearn.domain.Word
+import hu.bme.aut.langlearn.domain.entities.Word
+import hu.bme.aut.langlearn.domain.practice_screen.GetDeckUseCase
+import hu.bme.aut.langlearn.domain.practice_screen.GetSentenceUseCase
+import hu.bme.aut.langlearn.domain.practice_screen.SaveProgressUseCase
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 import kotlinx.coroutines.launch
-import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class SentenceViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    deckRepository: DeckRepository,
-    private val progressRepository: ProgressRepository,
-    private val sentenceRepository: SentenceRepository,
+    getDeckUseCase: GetDeckUseCase,
+    private val saveProgressUseCase: SaveProgressUseCase,
+    private val getSentenceUseCase: GetSentenceUseCase
 ) : PracticeViewModel(
     savedStateHandle = savedStateHandle
 ) {
@@ -38,7 +36,7 @@ class SentenceViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            deck = deckRepository.getDeck(deckId)
+            deck = getDeckUseCase(deckId)
             cardList = deck?.words!!
             languageCode = Locale(deck?.languageCode!!).displayLanguage
             resetQuiz()
@@ -50,11 +48,7 @@ class SentenceViewModel @Inject constructor(
         val word = quizAnswers[correctAnswerIndex].foreignWord
 
         viewModelScope.launch {
-            curSentence = sentenceRepository.getSentence(word, languageCode)
-                .replace(
-                    Regex("\\b${Regex.escape(word)}\\b", RegexOption.IGNORE_CASE),
-                    "_".repeat(5)
-                )
+            curSentence = getSentenceUseCase(word, languageCode)
         }
     }
 
@@ -71,12 +65,10 @@ class SentenceViewModel @Inject constructor(
     }
 
     fun saveProgress() {
-        progressRepository.addPractice(
+        saveProgressUseCase(
             deckId = deckId,
-            practice = Practice(
-                date = Date(),
-                score = correctAnswerNumber.toDouble() / cardList.size
-            )
+            correctAnswerNumber = correctAnswerNumber,
+            cardListSize = cardList.size
         )
     }
 }

@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.domain
+package hu.bme.aut.langlearn.domain.entities
 
 data class DeckPractice(
     val deckId: String = "",

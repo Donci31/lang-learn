@@ -1,6 +1,6 @@
 package hu.bme.aut.langlearn.data.repositories
 
-import hu.bme.aut.langlearn.domain.Deck
+import hu.bme.aut.langlearn.domain.entities.Deck
 import kotlinx.coroutines.flow.Flow
 
 interface DeckRepository {

@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.domain
+package hu.bme.aut.langlearn.domain.entities
 
 import java.util.Date
 

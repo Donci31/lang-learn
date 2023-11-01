@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import hu.bme.aut.langlearn.domain.Deck
+import hu.bme.aut.langlearn.domain.entities.Deck
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

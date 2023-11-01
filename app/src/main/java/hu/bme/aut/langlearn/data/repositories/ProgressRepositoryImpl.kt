@@ -5,8 +5,8 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.firestore.ktx.toObjects
-import hu.bme.aut.langlearn.domain.DeckPractice
-import hu.bme.aut.langlearn.domain.Practice
+import hu.bme.aut.langlearn.domain.entities.DeckPractice
+import hu.bme.aut.langlearn.domain.entities.Practice
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
