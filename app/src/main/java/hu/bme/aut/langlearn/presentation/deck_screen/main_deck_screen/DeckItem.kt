@@ -69,13 +69,17 @@ fun DeckItem(
             }
         }
         if (deck.practices.isNotEmpty()) {
+            val lastPracticeHour =
+                (Date().time - deck.practices.last().date.time) / (60 * 60 * 1000)
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 4.dp),
-                text = "Last practice: ${
-                    (Date().time - deck.practices.last().date.time) / (60 * 60 * 1000)
-                }h ago",
+                text = "Last practice: " + if (lastPracticeHour > 0) {
+                    "${lastPracticeHour}h ago"
+                } else {
+                    "Just now"
+                },
                 textAlign = TextAlign.Center
             )
         }
