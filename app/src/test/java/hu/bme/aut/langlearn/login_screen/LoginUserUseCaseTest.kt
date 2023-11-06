@@ -6,52 +6,56 @@ import hu.bme.aut.langlearn.domain.use_cases.login_screen.LoginUserUseCase
 import hu.bme.aut.langlearn.util.Resource
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class LoginUserUseCaseTest {
 
-    @Test
-    fun `invoke returns the correct result`() = runTest {
-        // Arrange
-        val mockAuthRepository = mockk<AuthRepository>()
-        val loginUserUseCase = LoginUserUseCase(mockAuthRepository)
-        val email = "test@example.com"
-        val password = "password"
-        val expectedResult = Resource.Success(mockk<AuthResult>())
+    private lateinit var authRepository: AuthRepository
+    private lateinit var loginUserUseCase: LoginUserUseCase
 
-        coEvery { mockAuthRepository.loginUser(email, password) } returns flowOf(expectedResult)
-
-        // Act
-        val result = loginUserUseCase(email, password)
-
-        // Assert
-        result.collect { actualResult ->
-            assertEquals(expectedResult, actualResult)
-        }
+    @Before
+    fun setUp() {
+        authRepository = mockk()
+        loginUserUseCase = LoginUserUseCase(authRepository)
     }
 
     @Test
-    fun `invoke returns error result for incorrect email`() = runTest {
+    fun `invoke returns loading, success, or error Resource based on authRepository result`() = runTest {
         // Arrange
-        val mockAuthRepository = mockk<AuthRepository>()
-        val loginUserUseCase = LoginUserUseCase(mockAuthRepository)
-        val incorrectEmail = "incorrect@example.com"
+        val email = "test@example.com"
         val password = "password"
-        val expectedResult = Resource.Error(data = mockk<AuthResult>(), message = "Wrong email")
+        val authResult = mockk<AuthResult>()
 
-        coEvery { mockAuthRepository.loginUser(incorrectEmail, password) } returns flowOf(
-            expectedResult
-        )
+        coEvery { authRepository.loginUser(email, password) } returns authResult
 
         // Act
-        val result = loginUserUseCase(incorrectEmail, password)
+        val result = loginUserUseCase(email, password).toList()
 
         // Assert
-        result.collect { actualResult ->
-            assertEquals(expectedResult, actualResult)
-        }
+        assertTrue(result[0] is Resource.Loading)
+        assertTrue(result[1] is Resource.Success)
+    }
+
+    @Test
+    fun `invoke returns Resource Error when an exception occurs`() = runTest {
+        // Arrange
+        val email = "test@example.com"
+        val password = "password"
+        val errorMessage = "Invalid credentials"
+
+        coEvery { authRepository.loginUser(email, password) } throws Exception(errorMessage)
+
+        // Act
+        val result = loginUserUseCase(email, password).toList()
+
+        // Assert
+        assertTrue(result[0] is Resource.Loading)
+        assertTrue(result[1] is Resource.Error)
     }
 }
