@@ -12,6 +12,6 @@ interface OpenAIAPI {
     @POST("v1/chat/completions")
     suspend fun getChatCompletions(
         @Header("Authorization") authorization: String,
-        @Body requestBody: ChatRequestBody
+        @Body requestBody: ChatRequest
     ): Response<ChatResponse>
 }

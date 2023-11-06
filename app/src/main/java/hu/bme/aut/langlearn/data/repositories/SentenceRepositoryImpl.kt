@@ -1,7 +1,7 @@
 package hu.bme.aut.langlearn.data.repositories
 
 import hu.bme.aut.langlearn.BuildConfig
-import hu.bme.aut.langlearn.data.remote.ChatRequestBody
+import hu.bme.aut.langlearn.data.remote.ChatRequest
 import hu.bme.aut.langlearn.data.remote.Message
 import hu.bme.aut.langlearn.data.remote.OpenAIAPI
 import hu.bme.aut.langlearn.domain.repositories.SentenceRepository
@@ -14,7 +14,7 @@ class SentenceRepositoryImpl @Inject constructor(
     override suspend fun getSentence(word: String, language: String): String {
         val response = openAIAPI.getChatCompletions(
             authorization = "Bearer ${BuildConfig.OPENAI_API_KEY}",
-            requestBody = ChatRequestBody(
+            requestBody = ChatRequest(
                 model = "gpt-3.5-turbo",
                 messages = listOf(
                     Message(
