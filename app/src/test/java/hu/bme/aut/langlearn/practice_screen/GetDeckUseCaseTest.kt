@@ -7,6 +7,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class GetDeckUseCaseTest {
@@ -39,6 +40,6 @@ class GetDeckUseCaseTest {
         val result = getDeckUseCase(deckId)
 
         // Assert
-        assertEquals(null, result)
+        assertNull(result)
     }
 }

@@ -31,7 +31,7 @@ class SaveProgressUseCaseTest {
         saveProgressUseCase(deckId, correctAnswerNumber, cardListSize)
 
         // Assert
-        verify {
+        verify(exactly = 1) {
             mockProgressRepository.addPractice(deckId, expectedPractice)
         }
     }

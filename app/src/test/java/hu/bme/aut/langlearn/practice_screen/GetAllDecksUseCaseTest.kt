@@ -5,6 +5,7 @@ import hu.bme.aut.langlearn.domain.repositories.DeckRepository
 import hu.bme.aut.langlearn.domain.use_cases.practice_screen.GetAllDecksUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
@@ -25,9 +26,9 @@ class GetAllDecksUseCaseTest {
         val getAllDecksUseCase = GetAllDecksUseCase(deckRepository)
 
         // Act
-        val result = getAllDecksUseCase().toList()
+        val result = getAllDecksUseCase()
 
         // Assert
-        assertEquals(listOf(expectedDecks), result)
+        assertEquals(expectedDecks, result.first())
     }
 }

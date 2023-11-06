@@ -4,7 +4,6 @@ import hu.bme.aut.langlearn.domain.repositories.AuthRepository
 import hu.bme.aut.langlearn.domain.use_cases.navigation.IsUserLoggedInUseCase
 import io.mockk.every
 import io.mockk.mockk
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

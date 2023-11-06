@@ -11,6 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -18,7 +19,7 @@ import org.junit.Test
 class SignUpUserUseCaseTest {
 
     @Test
-    fun `invoke returns the correct result`() = runBlockingTest {
+    fun `invoke returns the correct result`() = runTest {
         // Arrange
         val mockAuthRepository = mockk<AuthRepository>()
         val signUpUserUseCase = SignUpUserUseCase(mockAuthRepository)
@@ -26,7 +27,7 @@ class SignUpUserUseCaseTest {
         val email = "john.doe@example.com"
         val password = "password"
         val gender = Gender.MALE
-        val expectedResult = Resource.Success(mockk<AuthResult>()) // Replace with your expected result
+        val expectedResult = Resource.Success(mockk<AuthResult>())
 
         coEvery {
             mockAuthRepository.registerUser(userName, email, password, gender)

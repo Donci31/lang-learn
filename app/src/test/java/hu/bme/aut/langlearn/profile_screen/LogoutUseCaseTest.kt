@@ -18,7 +18,7 @@ class LogoutUseCaseTest {
         logoutUseCase()
 
         // Assert
-        verify {
+        verify(exactly = 1) {
             authRepository.logout()
         }
     }
