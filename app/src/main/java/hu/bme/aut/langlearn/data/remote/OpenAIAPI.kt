@@ -1,5 +1,7 @@
 package hu.bme.aut.langlearn.data.remote
 
+import hu.bme.aut.langlearn.data.remote.dao.ChatRequest
+import hu.bme.aut.langlearn.data.remote.dao.ChatResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header

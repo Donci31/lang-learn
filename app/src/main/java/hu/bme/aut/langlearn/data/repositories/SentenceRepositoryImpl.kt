@@ -1,8 +1,8 @@
 package hu.bme.aut.langlearn.data.repositories
 
 import hu.bme.aut.langlearn.BuildConfig
-import hu.bme.aut.langlearn.data.remote.ChatRequest
-import hu.bme.aut.langlearn.data.remote.Message
+import hu.bme.aut.langlearn.data.remote.dao.ChatRequest
+import hu.bme.aut.langlearn.data.remote.dao.Message
 import hu.bme.aut.langlearn.data.remote.OpenAIAPI
 import hu.bme.aut.langlearn.domain.repositories.SentenceRepository
 import javax.inject.Inject

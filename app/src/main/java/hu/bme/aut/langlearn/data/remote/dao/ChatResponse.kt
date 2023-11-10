@@ -1,4 +1,4 @@
-package hu.bme.aut.langlearn.data.remote
+package hu.bme.aut.langlearn.data.remote.dao
 
 data class ChatResponse(
     val id: String,
