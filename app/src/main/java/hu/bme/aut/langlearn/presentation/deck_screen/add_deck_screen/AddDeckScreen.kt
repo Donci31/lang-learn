@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Send
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -38,6 +39,13 @@ fun AddDeckScreen(
                     Text(text = "Add deck")
                 },
                 actions = {
+                    Text(text = "Private Deck")
+                    Checkbox(
+                        checked = viewModel.isPrivate,
+                        onCheckedChange = { isChecked ->
+                            viewModel.isPrivate = isChecked
+                        }
+                    )
                     IconButton(onClick = {
                         viewModel.addNewDeck()
                         navController.popBackStack()

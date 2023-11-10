@@ -15,6 +15,7 @@ class AddDeckViewModel @Inject constructor(
 ) : ViewModel() {
 
     var deckName by mutableStateOf("")
+    var isPrivate by mutableStateOf(false)
     val statefulWords = mutableStateListOf<StatefulWord>()
 
     fun addNewWord() {
@@ -22,6 +23,10 @@ class AddDeckViewModel @Inject constructor(
     }
 
     fun addNewDeck() {
-        addDeckUseCase(deckName, statefulWords)
+        addDeckUseCase(
+            deckName = deckName,
+            isPrivate = isPrivate,
+            statefulWords = statefulWords
+        )
     }
 }

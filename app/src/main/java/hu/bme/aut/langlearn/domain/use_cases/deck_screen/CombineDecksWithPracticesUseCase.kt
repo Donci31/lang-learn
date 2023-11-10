@@ -1,8 +1,9 @@
 package hu.bme.aut.langlearn.domain.use_cases.deck_screen
 
+import hu.bme.aut.langlearn.domain.entities.DeckWithPractice
+import hu.bme.aut.langlearn.domain.repositories.AuthRepository
 import hu.bme.aut.langlearn.domain.repositories.DeckRepository
 import hu.bme.aut.langlearn.domain.repositories.ProgressRepository
-import hu.bme.aut.langlearn.domain.entities.DeckWithPractice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class CombineDecksWithPracticesUseCase @Inject constructor(
     private val deckRepository: DeckRepository,
     private val progressRepository: ProgressRepository,
+    private val authRepository: AuthRepository,
 ) {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -20,11 +22,16 @@ class CombineDecksWithPracticesUseCase @Inject constructor(
             deckRepository.getAllDecks().map { decks ->
                 val deckPracticesMap = deckPractices.associateBy { it.deckId }
 
-                decks.map { deck ->
+                decks.filter { deck ->
+                    !deck.private || deck.hasAccess.contains(authRepository.currentUser!!.uid)
+                }.map { deck ->
+                    println(deck.private)
                     deckPracticesMap[deck.id]?.let { deckPractice ->
                         DeckWithPractice(
                             id = deck.id,
                             name = deck.name,
+                            private = deck.private,
+                            hasAccess = deck.hasAccess,
                             flagEmoji = getFlagEmoji(deck.languageCode),
                             words = deck.words,
                             practices = deckPractice.practices.takeLast(n = 5)
@@ -32,6 +39,8 @@ class CombineDecksWithPracticesUseCase @Inject constructor(
                     } ?: DeckWithPractice(
                         id = deck.id,
                         name = deck.name,
+                        private = deck.private,
+                        hasAccess = deck.hasAccess,
                         flagEmoji = getFlagEmoji(deck.languageCode),
                         words = deck.words,
                         practices = emptyList()
