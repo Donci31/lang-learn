@@ -5,6 +5,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import hu.bme.aut.langlearn.domain.repositories.AuthRepository
+import hu.bme.aut.langlearn.domain.repositories.ProgressRepository
 import hu.bme.aut.langlearn.presentation.singup_screen.Gender
 import hu.bme.aut.langlearn.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 class SignUpUserUseCase @Inject constructor(
     private val authRepository: AuthRepository,
-    private val firestore: FirebaseFirestore,
+    private val progressRepository: ProgressRepository
 ) {
 
     operator fun invoke(
@@ -43,10 +44,7 @@ class SignUpUserUseCase @Inject constructor(
             }
         ).await()
 
-        firestore
-            .collection("users")
-            .document(user.uid)
-            .set(HashMap<String, Any>())
+        progressRepository.addNewUser(user.uid)
 
         emit(Resource.Success(result))
     }.catch {

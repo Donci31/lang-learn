@@ -9,7 +9,7 @@ import java.util.UUID
 import javax.inject.Inject
 
 class AddDeckUseCase @Inject constructor(
-    private val repository: DeckRepository,
+    private val deckRepository: DeckRepository,
     private val authRepository: AuthRepository,
     private val languageIdentifier: LanguageIdentifier,
 ) {
@@ -25,7 +25,7 @@ class AddDeckUseCase @Inject constructor(
                 words = statefulWords.map { it.toWord() }
             )
 
-            repository.addDeck(deck)
+            deckRepository.addDeck(deck)
         }
     }
 

@@ -20,6 +20,13 @@ class ProgressRepositoryImpl @Inject constructor(
     private val user: String
         get() = auth.uid!!
 
+    override fun addNewUser(userId: String) {
+        firestore
+            .collection("users")
+            .document(userId)
+            .set(HashMap<String, Any>())
+    }
+
     override fun getAllPractices(): Flow<List<DeckPractice>> =
         firestore
             .collection("users")
@@ -46,10 +53,5 @@ class ProgressRepositoryImpl @Inject constructor(
                     documentRef.set(DeckPractice(deckId = deckId, practices = listOf(practice)))
                 }
             }
-
-        firestore
-            .collection("users")
-            .document(user)
-            .update("practice_day", FieldValue.arrayUnion(practice.date))
     }
 }
