@@ -5,8 +5,8 @@ import hu.bme.aut.langlearn.domain.entities.DeckPractice
 import hu.bme.aut.langlearn.domain.entities.DeckWithPractice
 import hu.bme.aut.langlearn.domain.entities.Practice
 import hu.bme.aut.langlearn.domain.entities.Word
-import hu.bme.aut.langlearn.domain.repositories.DeckRepository
 import hu.bme.aut.langlearn.domain.repositories.ProgressRepository
+import hu.bme.aut.langlearn.domain.use_cases.GetAllDecksUseCase
 import hu.bme.aut.langlearn.domain.use_cases.deck_screen.CombineDecksWithPracticesUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -24,10 +24,10 @@ class CombineDecksWithPracticesUseCaseTest {
     @Test
     fun `invoke returns list of DeckWithPractice`() = runTest {
         // Arrange
-        val mockDeckRepository = mockk<DeckRepository>()
+        val mockGetAllDecksUseCase = mockk<GetAllDecksUseCase>()
         val mockProgressRepository = mockk<ProgressRepository>()
         val combineDecksWithPracticesUseCase =
-            CombineDecksWithPracticesUseCase(mockDeckRepository, mockProgressRepository)
+            CombineDecksWithPracticesUseCase(mockGetAllDecksUseCase, mockProgressRepository)
 
         val date1 = Date()
         val date2 = Date()
@@ -57,6 +57,8 @@ class CombineDecksWithPracticesUseCaseTest {
             Deck(
                 id = "1",
                 name = "Deck 1",
+                private = false,
+                hasAccess = emptyList(),
                 languageCode = "de",
                 words = listOf(
                     Word("Hallo", "Hello"),
@@ -66,6 +68,8 @@ class CombineDecksWithPracticesUseCaseTest {
             Deck(
                 id = "2",
                 name = "Deck 2",
+                private = false,
+                hasAccess = emptyList(),
                 languageCode = "es",
                 words = listOf(
                     Word("Hola", "Hello"),
@@ -78,6 +82,8 @@ class CombineDecksWithPracticesUseCaseTest {
             DeckWithPractice(
                 id = "1",
                 name = "Deck 1",
+                private = false,
+                hasAccess = emptyList(),
                 flagEmoji = "\uD83C\uDDE9\uD83C\uDDEA",
                 words = listOf(
                     Word("Hallo", "Hello"),
@@ -93,6 +99,8 @@ class CombineDecksWithPracticesUseCaseTest {
             DeckWithPractice(
                 id = "2",
                 name = "Deck 2",
+                private = false,
+                hasAccess = emptyList(),
                 flagEmoji = "\uD83C\uDDEA\uD83C\uDDF8",
                 words = listOf(
                     Word("Hola", "Hello"),
@@ -108,7 +116,7 @@ class CombineDecksWithPracticesUseCaseTest {
         )
 
         coEvery { mockProgressRepository.getAllPractices() } returns flowOf(deckPractices)
-        coEvery { mockDeckRepository.getAllDecks() } returns flowOf(decks)
+        coEvery { mockGetAllDecksUseCase() } returns flowOf(decks)
 
         // Act
         val result = combineDecksWithPracticesUseCase().first()
