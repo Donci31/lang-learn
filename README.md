@@ -1,24 +1,12 @@
 # LangLearn
 
-## Project Timeline
+The LangLearn application allows users to record word pairs in the language they are learning and in a language they know.
+They can practice these word pairs through different interactive games in the application
+that help them memorize the words they are learning. The app includes state-of-the-art
+technologies and some artificial intelligence-based solutions.
 
-- [X] **Week 1-2: Firebase**
-  - [X] Implement user registration and login.
-  - [X] Develop deck creation and management features.
+## Features
 
-- [X]  **Week 3-6: Games**
-  - [X] Create flashcards and quiz functionalities.
-  - [X] Create GPT based sentence generation games.
+- **Deck Management**: Create personalized decks for targeted learning.
 
-- [ ] **Week 7-9: Social and Community Features**
-  - [X] Implement deck scoring functionality.
-  - [ ] Develop community features (e.g., forums, chats).
-  - [ ] Thoroughly test deck sharing and privacy.
-  - [ ] Begin working on notifications and reminders.
-
-- [ ] **Week 10: Polishing and Testing**
-  - [ ] Focus on UI/UX polishing and refinement.
-  - [ ] Conduct usability testing.
-  - [ ] Fix bugs and implement user feedback.
-  - [ ] Optimize app performance.
-  - [ ] Prepare for deployment.
+- **Interactive Quizzes**: Reinforce your knowledge with fun and interactive quizzes.

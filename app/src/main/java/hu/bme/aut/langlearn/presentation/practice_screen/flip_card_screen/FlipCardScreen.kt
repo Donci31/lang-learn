@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import hu.bme.aut.langlearn.presentation.practice_screen.PracticeFrame
-import hu.bme.aut.langlearn.presentation.practice_screen.PracticeViewModel
 
 @Composable
 fun FlipCardScreen(

@@ -14,7 +14,11 @@ class AddDeckUseCase @Inject constructor(
     private val languageIdentifier: LanguageIdentifier,
 ) {
 
-    operator fun invoke(deckName: String, isPrivate: Boolean, statefulWords: List<StatefulWord>) {
+    operator fun invoke(
+        deckName: String,
+        isPrivate: Boolean,
+        statefulWords: List<StatefulWord>,
+    ) {
         getDeckLanguage(statefulWords) { languageCode ->
             val deck = Deck(
                 id = UUID.randomUUID().toString(),
@@ -29,7 +33,10 @@ class AddDeckUseCase @Inject constructor(
         }
     }
 
-    private fun getDeckLanguage(statefulWords: List<StatefulWord>, callback: (String) -> Unit) {
+    private fun getDeckLanguage(
+        statefulWords: List<StatefulWord>,
+        callback: (String) -> Unit,
+    ) {
         languageIdentifier.identifyLanguage(
             statefulWords.joinToString(", ") { word ->
                 word.foreignWord.value
